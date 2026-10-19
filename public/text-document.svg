@@ -1,28 +1,41 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 120" fill="none" shape-rendering="crispEdges" role="img" aria-labelledby="document-title">
-  <title id="document-title">Retro text document</title>
+  <title id="document-title">Beveled retro text document</title>
   <defs>
     <linearGradient id="paper" x1="45" y1="8" x2="45" y2="103" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFF3"/>
-      <stop offset="0.5" stop-color="#F3F4E9"/>
-      <stop offset="1" stop-color="#DDE9EC"/>
+      <stop stop-color="#F1ECD6"/>
+      <stop offset="0.5" stop-color="#E7E2CB"/>
+      <stop offset="1" stop-color="#DCD6BE"/>
     </linearGradient>
   </defs>
-  <!-- A hard, stepped shadow and the dark side of the thick paper icon. -->
-  <path d="M21 15H71V21H77V27H83V33H94V118H21V15Z" fill="#000000" fill-opacity="0.16"/>
-  <path d="M15 10H66V16H72V22H78V28H89V112H15V10Z" fill="#202321"/>
-  <path d="M19 106H83V30H85V108H19V106Z" fill="#555952"/>
+  <!-- Hard stepped shadow, black depth, and a thick olive right/bottom edge. -->
+  <path d="M21 15H71V21H77V27H83V33H94V118H21V15Z" fill="#10140C" fill-opacity="0.2"/>
+  <path d="M16 11H67V17H73V23H79V29H90V114H16V11Z" fill="#141B13"/>
+  <path d="M16 106H84V29H87V111H16V106Z" fill="#484C3E"/>
+  <path d="M20 109H87V112H20V109Z" fill="#282E23"/>
   <!-- Pixel-stepped sheet outline. -->
-  <path d="M10 4H62V8H68V14H74V20H80V26H84V106H10V4Z" fill="#30332F"/>
+  <path d="M10 4H62V8H68V14H74V20H80V26H84V106H10V4Z" fill="#34382B"/>
+  <path d="M12 6H61V8H14V104H12V6Z" fill="#A7A58D"/>
   <path d="M14 8H60V30H80V102H14V8Z" fill="url(#paper)"/>
-  <path d="M14 8H60V11H17V102H14V8Z" fill="#FFFFFF"/>
-  <path d="M17 99H77V32H80V102H17V99Z" fill="#BFC9C9"/>
-  <!-- Folded corner, with a small cast shadow along its lower edge. -->
-  <path d="M60 8H62V12H68V18H74V24H80V34H60V8Z" fill="#A9B0AC"/>
-  <path d="M60 8H62V12H68V18H74V24H80V30H60V8Z" fill="#30332F"/>
-  <path d="M64 14V26H76V24H72V20H68V16H66V14H64Z" fill="#E4E8E0"/>
-  <path d="M64 14V26H67V18H66V14H64Z" fill="#FFFFFF"/>
-  <!-- Seven chunky lines of text. -->
-  <g fill="#8C918B">
+  <path d="M14 8H60V11H17V102H14V8Z" fill="#FFFBE7"/>
+  <path d="M17 98H76V32H80V102H17V98Z" fill="#A7A78E"/>
+  <path d="M18 97H76V99H18V97Z" fill="#C6C2A9"/>
+  <!-- The folded corner sits inside a dark, recessed step. -->
+  <path d="M58 8H62V12H68V18H74V24H80V35H58V8Z" fill="#BBB9A0"/>
+  <path d="M60 8H62V12H68V18H74V24H80V31H60V8Z" fill="#45493B"/>
+  <path d="M64 14V27H76V24H72V20H68V16H66V14H64Z" fill="#9B9D8A"/>
+  <path d="M64 14V27H67V18H66V14H64Z" fill="#D8D6BC"/>
+  <path d="M67 25H76V27H67V25Z" fill="#707665"/>
+  <!-- Seven embossed gray lines: dark upper edges and warm lower highlights. -->
+  <g fill="#F7F1D9">
+    <path d="M23 46H71V49H23V46Z"/>
+    <path d="M23 53H65V56H23V53Z"/>
+    <path d="M23 60H70V63H23V60Z"/>
+    <path d="M23 67H58V70H23V67Z"/>
+    <path d="M23 74H68V77H23V74Z"/>
+    <path d="M23 81H62V84H23V81Z"/>
+    <path d="M23 88H51V91H23V88Z"/>
+  </g>
+  <g fill="#737A69">
     <path d="M23 44H71V48H23V44Z"/>
     <path d="M23 51H65V55H23V51Z"/>
     <path d="M23 58H70V62H23V58Z"/>
@@ -30,5 +43,14 @@
     <path d="M23 72H68V76H23V72Z"/>
     <path d="M23 79H62V83H23V79Z"/>
     <path d="M23 86H51V90H23V86Z"/>
+  </g>
+  <g fill="#959985">
+    <path d="M24 46H71V48H24V46Z"/>
+    <path d="M24 53H65V55H24V53Z"/>
+    <path d="M24 60H70V62H24V60Z"/>
+    <path d="M24 67H58V69H24V67Z"/>
+    <path d="M24 74H68V76H24V74Z"/>
+    <path d="M24 81H62V83H24V81Z"/>
+    <path d="M24 88H51V90H24V88Z"/>
   </g>
 </svg>
