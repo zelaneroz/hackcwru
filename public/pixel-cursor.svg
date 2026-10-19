@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="80" viewBox="0 0 58 80" fill="none">
+  <title>Extruded pixel arrow cursor</title>
+  <defs>
+    <path id="arrow" d="M4 2H8V6H12V10H16V14H20V18H24V22H28V26H32V30H36V34H40V38H44V42H48V46H32V50H35V56H38V62H41V68H35V72H29V68H26V62H23V56H20V50H16V46H12V50H8V54H4Z"/>
+  </defs>
+  <use href="#arrow" transform="translate(4 5)" fill="#292a1f" stroke="#292a1f" stroke-width="5"/>
+  <use href="#arrow" fill="#fffdf0" stroke="#15170e" stroke-width="4"/>
+  <path d="M8 12V45L12 41V16Z" fill="#e6e3d6"/>
+  <path d="M29 52L37 68H33L25 52Z" fill="#dad7cb"/>
+</svg>

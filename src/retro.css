@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'VT323';
+  src: url('/fonts/VT323-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pixelify Sans';
+  src: url('/fonts/PixelifySans-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-synthesis: none;
+  --retro-gray: #c0c0c0;
+  --retro-navy: #000080;
+  --retro-paper: #eae8d8;
+  --retro-prize: #d0cec0;
+  --retro-light: #fffdf0;
+  --retro-edge: #4b4e42;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; color: inherit; border-radius: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+button:focus-visible, a:focus-visible, summary:focus-visible {
+  outline: 2px dashed var(--retro-navy);
+  outline-offset: 5px;
+}
