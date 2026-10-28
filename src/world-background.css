@@ -1,0 +1,114 @@
+@import './retro.css';
+
+:root {
+  color-scheme: light;
+  font-family: 'VT323', 'Courier New', monospace;
+  background: #1e78d6;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  min-width: 280px;
+  scroll-behavior: auto;
+  scrollbar-color: #d2d1c5 #315c42;
+  scrollbar-width: thin;
+}
+
+body { margin: 0; }
+body, #app { min-width: 280px; width: 100%; }
+.world-definitions { position: absolute; overflow: hidden; pointer-events: none; }
+
+.world-scroll-container {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  /* Clip overscan once, around the whole world, never between sections. */
+  overflow: clip;
+  background: #26b6d7;
+  --scroll-y: 0px;
+  --world-progress: 0;
+}
+
+.world-art { position: absolute; inset: 0; z-index: -1; pointer-events: none; user-select: none; }
+.world-plane { position: absolute; inset: 0; transform: translate3d(0, var(--parallax-y, 0px), 0); }
+.world-plane > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.far-sky { z-index: 0; }
+.clouds { z-index: 1; }
+.mid-hills { z-index: 2; }
+.near-grass-slope { z-index: 3; }
+.shoreline-sand { z-index: 4; }
+.sunlit-lakebed { z-index: 5; }
+.water-caustics { z-index: 6; mix-blend-mode: screen; }
+
+.cloud-drift { animation: cloud-drift 65s ease-in-out infinite alternate; }
+.cloud-drift--far { animation-duration: 93s; animation-direction: alternate-reverse; }
+.caustic-drift { animation: caustic-drift 19s ease-in-out infinite alternate; }
+.caustic-drift--echo { animation: caustic-echo 26s ease-in-out infinite alternate; }
+.shore-foam { animation: shore-breath 7s ease-in-out infinite; }
+
+.world-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  /* Section landmarks have no background, borders, masks, or clipping. */
+  outline: none;
+  --section-progress: 0;
+  --section-visibility: 0;
+}
+
+.section-marker {
+  position: absolute;
+  top: clamp(22px, 4.5svh, 48px);
+  left: clamp(20px, 3.35vw, 64px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: calc(100% - 40px);
+  min-height: 31px;
+  margin: 0;
+  padding: 5px 9px 5px 7px;
+  border: 2px solid;
+  border-color: #faf9e9 #4f594e #4f594e #faf9e9;
+  background: linear-gradient(100deg, #000080, #1858a4);
+  box-shadow: 0 0 0 2px #c4c4b6, 3px 5px 0 #15372e38;
+  color: #fffff5;
+  font: 400 16px/1 'VT323', 'Courier New', monospace;
+  letter-spacing: .35px;
+  white-space: nowrap;
+}
+
+.marker-icon { display: block; width: 16px; height: 16px; flex: 0 0 16px; image-rendering: pixelated; }
+.marker-index { margin-left: 10px; padding-left: 8px; border-left: 1px solid #ffffff40; color: #c6daf5; font-size: 13px; }
+
+/* Viewport-sized tiled overlays avoid a seven-screen SVG filter surface. */
+.world-grain, .world-crt { position: fixed; inset: 0; pointer-events: none; user-select: none; z-index: 20; }
+.world-grain {
+  opacity: .12;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' opacity='.75' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.world-crt {
+  z-index: 21;
+  opacity: .2;
+  background: repeating-linear-gradient(0deg, #082f271e 0, #082f271e 1px, transparent 1px, transparent 3px);
+  box-shadow: inset 0 0 110px #00304b18;
+  mix-blend-mode: multiply;
+}
+
+@keyframes cloud-drift { from { transform: translateX(-12px); } to { transform: translateX(36px); } }
+@keyframes caustic-drift { from { transform: translate(-12px, -9px); } to { transform: translate(16px, 12px); } }
+@keyframes caustic-echo { from { transform: translate(21px, 13px); } to { transform: translate(-17px, -12px); } }
+@keyframes shore-breath { 0%, 100% { opacity: .54; } 50% { opacity: .82; } }
+
+@media (max-width: 600px) {
+  .section-marker { gap: 7px; min-height: 29px; padding: 5px 7px; font-size: 14px; letter-spacing: 0; }
+  .marker-index { margin-left: 5px; padding-left: 6px; font-size: 12px; }
+  .world-crt { opacity: .15; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .world-plane { transform: none; }
+  .cloud-drift, .caustic-drift, .shore-foam { animation: none; }
+}
