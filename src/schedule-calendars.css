@@ -1,0 +1,99 @@
+.schedule-calendars-stage {
+  position: absolute;
+  inset: clamp(64px, 8svh, 100px) clamp(16px, 4vw, 72px) clamp(88px, 10svh, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.5svh, 28px);
+  max-width: 1280px;
+  margin-inline: auto;
+  color: #263136;
+  font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
+}
+
+.schedule-calendars-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex: 0 0 auto; color: #fffde8; text-shadow: 0 2px 7px #29451e70; }
+.schedule-calendars-heading p { margin: 0 0 7px; font: 400 clamp(.875rem, 1.4vw, 1.125rem)/1 'VT323', monospace; letter-spacing: 1px; }
+.schedule-calendars-heading h2 { margin: 0; font: 500 clamp(1.75rem, 4vw, 3rem)/1 'Pixelify Sans', monospace; letter-spacing: -1px; }
+.schedule-calendars-preview { padding: 5px 9px; border: 1px solid #f5f9df70; border-radius: 3px; background: #285c3430; font: 400 clamp(.8125rem, 1.3vw, 1rem)/1.2 'VT323', monospace; text-align: right; }
+
+.schedule-calendar-windows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-content: start; align-items: start; gap: clamp(18px, 2vw, 28px); min-height: 0; padding: 6px 6px 24px; margin: -6px -6px 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #fbf6d480 transparent; }
+.mac-calendar-window { min-width: 0; border: 1px solid #657077; border-radius: 9px 9px 5px 5px; background: #f8f9fa; box-shadow: inset 0 0 0 1px #fff, 0 2px 2px #233a3430, 0 16px 32px #20382b3d; }
+.mac-calendar-window.is-zoomed { grid-column: 1 / -1; margin-top: 0; }
+
+.mac-calendar-titlebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 10px 0 5px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #9ca3a8;
+  border-radius: 8px 8px 0 0;
+  background: repeating-linear-gradient(0deg, #ffffff12 0 1px, #7b858b0a 1px 2px), linear-gradient(#f7f8fa, #dadde0 40%, #c9cdd1 55%, #e0e3e6);
+  box-shadow: inset 0 1px #fff;
+  color: #363d42;
+  text-shadow: 0 1px #fff;
+}
+.mac-calendar-controls { display: flex; flex: 0 0 auto; }
+.mac-calendar-control { display: grid; place-items: center; width: 25px; height: 34px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.mac-calendar-control > span { position: relative; display: block; width: 13px; height: 13px; border: 1px solid #0005; border-radius: 50%; box-shadow: inset 0 1px 2px #fff9, 0 1px #fff9; }
+.mac-calendar-close > span { background: radial-gradient(circle at 50% 20%, #ffd3ca 0%, #f87566 32%, #d9362d 80%); }
+.mac-calendar-minimize > span { background: radial-gradient(circle at 50% 20%, #fff3b1 0%, #f3cd55 35%, #d29918 85%); }
+.mac-calendar-zoom > span { background: radial-gradient(circle at 50% 20%, #e1ffcc 0%, #92cb69 35%, #4d9b38 85%); }
+.mac-calendar-controls:hover .mac-calendar-close > span::after { content: '×'; }
+.mac-calendar-controls:hover .mac-calendar-minimize > span::after { content: '−'; }
+.mac-calendar-controls:hover .mac-calendar-zoom > span::after { content: '+'; }
+.mac-calendar-control > span::after { position: absolute; inset: -1px; color: #262b28b0; font: 12px/13px Arial, sans-serif; text-align: center; text-shadow: none; }
+.mac-calendar-control:focus-visible { outline: 2px solid #4082bd; outline-offset: -3px; border-radius: 5px; }
+.mac-calendar-app-name { flex: 1; min-width: 0; font-size: 13px; font-weight: 700; text-align: center; }
+.mac-calendar-window-number { width: 54px; font-size: 10px; text-align: right; color: #697177; }
+
+.mac-calendar-content { border-radius: 0 0 4px 4px; overflow: hidden; }
+.mac-calendar-toolbar { padding: clamp(12px, 1.8vw, 20px) clamp(12px, 1.8vw, 22px) 12px; border-bottom: 1px solid #d4d9dc; background: repeating-linear-gradient(0deg, #fff 0 1px, #f5f7f9 1px 3px); }
+.mac-calendar-date-heading { display: flex; align-items: center; gap: 12px; }
+.mac-calendar-date-icon { flex: 0 0 41px; height: 43px; border: 1px solid #a6adb2; border-radius: 4px; background: #fff; box-shadow: 0 2px 2px #46545e18; text-align: center; }
+.mac-calendar-date-icon > span { display: block; padding: 3px 0 2px; border-radius: 3px 3px 0 0; background: linear-gradient(#e37873, #be3939); color: #fff; font-size: 8px; line-height: 1; font-weight: 700; letter-spacing: 1px; }
+.mac-calendar-date-icon > strong { display: block; padding-top: 3px; font-size: 23px; line-height: 1; font-weight: 400; }
+.mac-calendar-weekday { margin: 0 0 5px; font-size: clamp(1rem, 1.7vw, 1.25rem); line-height: 1.1; font-weight: 700; letter-spacing: -.4px; }
+.mac-calendar-full-date { color: #657078; font-size: 12px; }
+.mac-calendar-restore { min-width: 36px; padding: 5px 9px; border: 1px solid #aab1b7; background: linear-gradient(#fff, #e3e7eb 55%, #d5dbe1); box-shadow: inset 0 1px #fff, 0 1px 1px #3545501a; color: #34454f; font: 12px/1.1 'Lucida Grande', Tahoma, sans-serif; cursor: pointer; }
+.mac-calendar-restore:active { background: #b9d2e8; }
+.mac-calendar-restore:focus-visible { outline: 2px solid #347db8; outline-offset: 2px; }
+
+.mac-calendar-agenda { display: grid; gap: 7px; max-height: clamp(240px, 43svh, 390px); margin: 0; padding: clamp(10px, 1.5vw, 16px); overflow-y: auto; list-style: none; background: #fdfdfc; scrollbar-width: thin; scrollbar-color: #a9bac8 #f5f6f7; }
+.mac-calendar-event { --event-accent: #d8ae50; --event-background: #fff6e5; --event-ink: #695527; position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 67px; padding: 11px 12px 11px 19px; border: 1px solid #ffffffb3; border-radius: 5px; background: var(--event-background); color: var(--event-ink); box-shadow: 0 1px 1px #263e4f05; }
+.mac-calendar-event::before { content: ''; position: absolute; top: 9px; bottom: 9px; left: 7px; width: 4px; border-radius: 3px; background: var(--event-accent); }
+.mac-calendar-event--green { --event-accent: #83bf54; --event-background: #edf7e4; --event-ink: #3e642e; }
+.mac-calendar-event--blue { --event-accent: #5b9fd0; --event-background: #eaf5fc; --event-ink: #345d75; }
+.mac-calendar-event--purple { --event-accent: #a273cb; --event-background: #f5edfb; --event-ink: #6a4788; }
+.mac-calendar-event-copy { min-width: 0; }
+.mac-calendar-event h4 { margin: 0; font-size: clamp(.8125rem, 1.25vw, .9375rem); line-height: 1.3; font-weight: 700; }
+.mac-calendar-event p { margin: 5px 0 0; color: var(--event-ink); font-size: 11px; line-height: 1.4; opacity: .85; }
+.mac-calendar-event-time { display: flex; flex: 0 0 auto; flex-direction: column; gap: 5px; padding-left: 2px; color: var(--event-ink); font-size: 10px; line-height: 1; text-align: right; opacity: .7; }
+.mac-calendar-event-time strong { font-size: 12px; font-weight: 400; }
+.mac-calendar-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px; border-top: 1px solid #ccd2d8; background: linear-gradient(#f5f6f7, #dfe3e7); color: #707a82; font-size: 10px; }
+.mac-calendar-source { display: flex; align-items: center; gap: 6px; }
+.mac-calendar-source i { width: 8px; height: 8px; border: 1px solid #4a86aa; border-radius: 2px; background: linear-gradient(#96d2ee, #5b9dc5); }
+.schedule-calendar-restores { display: flex; flex-wrap: wrap; gap: 10px; }
+.mac-calendar-restore { min-height: 44px; border-radius: 6px; }
+.mac-calendar-window.is-zoomed .mac-calendar-agenda { max-height: none; }
+.mac-calendar-window.is-zoomed .mac-calendar-event { min-height: 76px; }
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .schedule-calendar-windows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .schedule-calendar-windows { grid-template-columns: minmax(0, 1fr); }
+  .mac-calendar-window { width: min(100%, 580px); justify-self: center; }
+  .mac-calendar-window.is-zoomed { width: 100%; }
+  .schedule-calendars-heading { gap: 10px; }
+  .schedule-calendars-preview { max-width: 140px; }
+}
+@media (pointer: coarse) {
+  .mac-calendar-control { width: 44px; height: 44px; }
+  .mac-calendar-window-number { width: auto; }
+}
+@media (max-width: 379px) {
+  .schedule-calendars-preview { max-width: 115px; font-size: 12px; }
+  .mac-calendar-event { gap: 8px; padding-right: 9px; }
+}
