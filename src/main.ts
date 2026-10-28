@@ -1,6 +1,8 @@
 import './world-background.css'
 import { mountWorldBackground } from './world-background'
 import { mountHeroAlert } from './hero-alert'
+import './info.css'
+import { mountFloatingNav } from './floating-nav'
 
 // One coordinate system, one landscape. Each 1,000 vertical units occupies one
 // viewport; none of the artwork is attached to a section boundary.
@@ -199,6 +201,15 @@ const caustics = plane('water-caustics', `
   </g>
 `, .018, 3.6)
 
+const infoContent = `
+  <div class="info-webcore">
+    <figure class="info-webcore-card">
+        <img class="info-webcore-image" src="/fonts/hackcwru%20%281%29.png" width="1920" height="1080" loading="lazy" decoding="async"
+          alt="HackCWRU brings together student innovators from across the country to Case Western Reserve University for Cleveland’s biggest hackathon—an unforgettable weekend of creation. Over an action-packed 36 hours, hackers of all experience levels assemble to design, prototype, and build groundbreaking projects. Connect with industry sponsors, collaborate with inspiring peers, and test the limits of what you can invent.">
+    </figure>
+  </div>
+`
+
 const app = document.querySelector<HTMLDivElement>('#app')!
 app.innerHTML = `
   ${definitions}
@@ -206,22 +217,30 @@ app.innerHTML = `
     <div class="world-art" aria-hidden="true">${sky}${clouds}${hills}${foreground}${shoreline}${lakebed}${caustics}</div>
     ${sections.map((section, index) => `
       <section id="${section.id}" class="world-section" data-world-section aria-label="${section.name}" tabindex="-1">
-        <h1 class="section-marker">
+        ${section.id === 'info' ? '' : `<h1 class="section-marker">
           <svg class="marker-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="#a8d8fa" d="M1 1h14v14H1z"/><path fill="#fffbd5" d="M10 3h3v3h-3z"/><path fill="#5eaa22" d="m1 11 5-5 4 4 2-2 3 4v3H1z"/><path fill="#387b17" d="m1 13 5-4 6 6H1z"/></svg>
           <span>[ SECTION: ${section.id.toUpperCase()} ]</span>
           <span class="marker-index" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
-        </h1>
+        </h1>`}
+        ${section.id === 'info' ? infoContent : ''}
       </section>`).join('')}
   </main>
   <div class="world-grain" aria-hidden="true"></div>
   <div class="world-crt" aria-hidden="true"></div>
 `
 
-const world = mountWorldBackground(app.querySelector<HTMLElement>('.world-scroll-container')!)
+const worldElement = app.querySelector<HTMLElement>('.world-scroll-container')!
+const registrationUrl = 'https://tally.so/r/WJJjpe'
+const world = mountWorldBackground(worldElement)
 const hero = mountHeroAlert(app.querySelector<HTMLElement>('#main')!, {
-  registrationUrl: 'https://tally.so/r/WJJjpe',
+  registrationUrl,
+})
+const navigation = mountFloatingNav(app, {
+  world: worldElement,
+  registrationUrl,
 })
 if (import.meta.hot) import.meta.hot.dispose(() => {
+  navigation.destroy()
   hero.destroy()
   world.destroy()
 })
