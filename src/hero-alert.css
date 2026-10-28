@@ -1,0 +1,191 @@
+/* Foreground only. Landscape layers, section geometry and global styles stay
+   in world-background.css, which this component deliberately never overrides. */
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url('/fonts/PressStart2P.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.hero-alert-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  color: #171914;
+  font-family: 'Minecraft', 'Courier New', monospace;
+  --hero-top: clamp(24px, 7svh, 80px);
+  --hero-bottom: clamp(24px, 7svh, 72px);
+  --hero-room: calc(100svh - var(--hero-top) - var(--hero-bottom));
+}
+
+.hero-alert-position {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(92vw, 960px);
+  max-width: calc(100% - 24px);
+  transform: translate(-50%, -50%);
+}
+
+.hero-alert-computer {
+  position: absolute;
+  bottom: clamp(8px, 1.5svh, 20px);
+  left: clamp(-24px, -1vw, -8px);
+  width: clamp(220px, 22vw, 480px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-alert-float { position: relative; z-index: 1; animation: hero-alert-hover 6s ease-in-out infinite; }
+.hero-alert-window {
+  display: flex;
+  flex-direction: column;
+  max-height: var(--hero-room);
+  padding: clamp(4px, .6vw, 6px);
+  border: 2px solid;
+  border-color: #fff #111 #111 #fff;
+  background: #c0c0c0;
+  box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf, -2px 3px #808080, -4px 5px #777, -6px 7px #393d36, 3px 9px 24px #153a2526;
+  transform: perspective(1000px) rotateX(3deg) rotateY(-5deg) rotateZ(-1deg);
+  pointer-events: auto;
+}
+
+.hero-alert-titlebar {
+  display: flex;
+  align-items: center;
+  gap: clamp(5px, .65vw, 8px);
+  min-height: clamp(34px, 3.5vw, 50px);
+  flex: 0 0 auto;
+  padding: 3px 4px 3px 7px;
+  background: #000080;
+  color: #fffff4;
+}
+.hero-alert-warning { display: flex; flex: 0 0 20px; animation: hero-alert-warning 2.4s ease-in-out infinite; }
+.hero-alert-warning svg { width: 20px; height: 20px; }
+.hero-alert-title { display: flex; align-items: baseline; flex: 1; min-width: 0; white-space: nowrap; font-size: clamp(.875rem, 2.1vw, 1.75rem); line-height: 1.15; }
+.hero-alert-title-path { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+.hero-alert-bevel {
+  border: 2px solid;
+  border-color: #fff #111 #111 #fff;
+  box-shadow: inset -1px -1px #808080, inset 1px 1px #dfdfdf;
+  border-radius: 0;
+  background: #c0c0c8;
+  color: #171914;
+  cursor: pointer;
+  text-decoration: none;
+}
+.hero-alert-bevel:active { transform: translate(1px, 1px); border-color: #111 #fff #fff #111; box-shadow: inset 1px 1px #808080; }
+.hero-alert-close { display: grid; place-items: center; flex: 0 0 28px; width: 28px; height: 28px; padding: 0 0 2px; font: 24px/1 'Minecraft', monospace; }
+
+.hero-alert-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(12px, 2.2svh, 24px);
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #858585 #d1d1d1;
+  padding: clamp(18px, 3vw, 40px) clamp(12px, 3vw, 44px) clamp(10px, 1.8vw, 24px);
+  text-align: center;
+}
+.hero-alert-body h1 { margin: 0; font: 400 clamp(1.75rem, 5vw, 4rem)/1.12 'Minecraft', monospace; letter-spacing: -.6px; }
+.hero-alert-body h1 > span { display: block; margin-bottom: 3px; font-size: .73em; font-weight: 500; letter-spacing: 0; }
+
+.hero-alert-calendar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(5px, 1vw, 8px);
+  align-self: center;
+  max-width: 100%;
+  padding: clamp(5px, .8vw, 10px) clamp(8px, 1.4vw, 20px);
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #b4b4b1;
+  font-size: clamp(1rem, 2.4vw, 1.75rem);
+  line-height: 1;
+  white-space: nowrap;
+}
+.hero-alert-calendar svg { flex: 0 0 18px; width: 18px; height: 18px; }
+.hero-alert-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: clamp(12px, 2vw, 24px) clamp(8px, 2vw, 24px);
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
+  background: #0a0f0a;
+  box-shadow: inset 2px 2px 5px #000;
+  color: #39ff14;
+}
+.hero-alert-unit { position: relative; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.hero-alert-unit:not(:last-child)::after { content: ':'; position: absolute; right: -.08em; top: 0; font-size: clamp(1.65rem, 6.5vw, 4.75rem); line-height: 1; color: #39ff1480; }
+.hero-alert-digits { font: 400 clamp(1.65rem, 6.5vw, 4.75rem)/1 'Minecraft', 'Courier New', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: 0 0 8px rgb(57 255 20 / .55); }
+.hero-alert-unit-label { font-size: clamp(.6875rem, 1.6vw, 1rem); line-height: 1; letter-spacing: 1px; color: #9eb595; }
+
+.hero-alert-actions { display: flex; justify-content: center; margin-top: 2px; }
+.hero-alert-button { display: flex; align-items: center; justify-content: center; min-height: clamp(44px, 5vw, 64px); min-width: 0; padding: 6px clamp(8px, 1.3vw, 16px); font-size: clamp(1.375rem, 3.4vw, 2.75rem); line-height: 1; }
+.hero-alert-register { width: min(100%, 420px); font-family: 'Press Start 2P', 'Minecraft', monospace; background: #48a842; border-color: #9be18f #163d16 #163d16 #9be18f; box-shadow: inset -1px -1px #2f7d29, inset 1px 1px #70ca60; }
+.hero-alert-register:active { border-color: #163d16 #9be18f #9be18f #163d16; box-shadow: inset 1px 1px #2f7d29; }
+.hero-alert-links-row { display: flex; flex-wrap: nowrap; align-items: center; justify-content: center; gap: clamp(12px, 4vw, 40px); min-width: 0; }
+.hero-alert-tracks { display: flex; align-items: center; justify-content: center; min-height: 44px; color: #000080; font-size: clamp(1.0625rem, 2.4vw, 1.75rem); line-height: 1; white-space: nowrap; text-underline-offset: 3px; }
+.hero-alert-register, .hero-alert-calendar, .hero-alert-tracks { font-family: 'VT323', 'Courier New', monospace; }
+.hero-alert-button:hover, .hero-alert-close:hover, .hero-alert-restore:hover { filter: brightness(1.06); }
+
+.hero-alert-shadow { position: absolute; top: calc(100% + clamp(22px, 7svh, 64px)); left: 12%; width: 78%; height: clamp(18px, 3svh, 32px); border-radius: 50%; background: #183a0d60; filter: blur(12px); transform: skewX(-22deg) rotate(-3deg); animation: hero-alert-shadow 6s ease-in-out infinite; }
+
+.hero-alert-restore { position: absolute; top: clamp(22px, 4.5svh, 48px); left: clamp(20px, 3.35vw, 64px); display: flex; align-items: center; justify-content: center; gap: 9px; max-width: calc(100% - 40px); min-height: 44px; padding: 7px 12px; font: 400 clamp(1rem, 2vw, 1.25rem)/1 'Minecraft', monospace; pointer-events: auto; }
+.hero-alert-restore svg { width: 18px; height: 18px; }
+.hero-alert-stage :is(a, button):focus-visible { outline: 2px dashed #000080; outline-offset: 3px; }
+.hero-alert-titlebar button:focus-visible { outline-color: #fff; outline-offset: 1px; }
+
+@keyframes hero-alert-hover { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes hero-alert-shadow { 0%, 100% { opacity: 1; } 50% { opacity: .75; } }
+@keyframes hero-alert-warning { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+
+@media (min-width: 1025px) and (max-width: 1365px) {
+  .hero-alert-position { width: min(90vw, 840px); }
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-alert-stage { --hero-bottom: clamp(170px, 20svh, 220px); }
+  .hero-alert-position { top: calc((100svh - var(--hero-bottom) + var(--hero-top)) / 2); width: min(90vw, 840px); }
+  .hero-alert-window { transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) rotateZ(-.5deg); }
+}
+@media (max-width: 767px) {
+  .hero-alert-stage { --hero-top: clamp(18px, 5svh, 48px); --hero-bottom: clamp(160px, 44vw, 215px); }
+  .hero-alert-position { top: calc((100svh - var(--hero-bottom) + var(--hero-top)) / 2); margin-inline: auto; }
+  .hero-alert-computer { left: 50%; width: min(62vw, 280px); transform: translateX(-50%); }
+  .hero-alert-window { transform: perspective(1000px) rotateX(1deg); }
+}
+@media (max-width: 379px) {
+  .hero-alert-body { gap: 10px; padding-inline: 12px; }
+  .hero-alert-title { gap: 4px; font-size: .875rem; }
+  .hero-alert-titlebar { gap: 5px; }
+}
+@media (pointer: coarse) {
+  .hero-alert-close { flex-basis: 44px; width: 44px; height: 44px; }
+}
+@media (max-height: 500px) {
+  .hero-alert-stage { --hero-top: 16px; --hero-bottom: 20px; }
+  .hero-alert-position { top: 50%; }
+  .hero-alert-computer { display: none; }
+  .hero-alert-window { transform: none; }
+  .hero-alert-shadow { top: calc(100% + 9px); height: 14px; filter: blur(8px); }
+  .hero-alert-float { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-alert-float, .hero-alert-shadow, .hero-alert-warning { animation: none; }
+}
