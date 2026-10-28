@@ -1,0 +1,51 @@
+/* Foreground artwork only; the continuous meadow stays untouched. */
+.info-webcore {
+  position: absolute;
+  inset: clamp(82px, 12svh, 120px) clamp(12px, 2vw, 40px) clamp(24px, 5svh, 60px);
+  display: grid;
+  place-items: center;
+}
+
+.info-webcore-card {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 1280px, calc((100svh - 170px) * 16 / 9));
+  margin: 0;
+  transform: rotate(-.8deg);
+}
+
+.info-webcore-card::before {
+  content: '';
+  position: absolute;
+  inset: -16% -10%;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, #fffde570 0%, #dcffe540 35%, #c5f8f01a 52%, transparent 72%);
+  filter: blur(clamp(18px, 3vw, 44px));
+}
+
+.info-webcore-card::after {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  bottom: -2%;
+  height: 9%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: #102d1b60;
+  filter: blur(clamp(14px, 2vw, 26px));
+  transform: translateY(45%);
+}
+
+.info-webcore-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 5px 4px #071a2030) drop-shadow(0 22px 20px #09231355);
+}
+
+@media (max-width: 600px), (max-height: 500px) {
+  .info-webcore-card { transform: none; }
+}
