@@ -3,7 +3,7 @@ import { mountWorldBackground } from './world-background-mosaic'
 import { mountImacHero } from './hero-imac'
 import './info.css'
 import { mountFloatingNav } from './floating-nav'
-import { mountXmbTracks } from './xmb-tracks'
+import { mountPurbleTracks } from './purble-tracks'
 import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
 import { mountSponsorsPlayer } from './sponsors-player'
@@ -245,7 +245,7 @@ const navigation = mountFloatingNav(app, {
   world: worldElement,
   registrationUrl,
 })
-const trackSelector = mountXmbTracks(app.querySelector<HTMLElement>('#tracks')!)
+const trackSelector = mountPurbleTracks(app.querySelector<HTMLElement>('#tracks')!)
 const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedule')!)
 const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
 const sponsorsPlayer = mountSponsorsPlayer(app.querySelector<HTMLElement>('#sponsors')!)
