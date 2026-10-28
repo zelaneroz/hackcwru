@@ -8,7 +8,6 @@ import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
 import { mountSponsorsPlayer } from './sponsors-player'
 import { mountPixelCursor } from './pixel-cursor'
-import { mountFloppyButterflies } from './floppy-butterflies'
 
 // One coordinate system, one landscape. Each 1,000 vertical units occupies one
 // viewport; none of the artwork is attached to a section boundary.
@@ -250,9 +249,7 @@ const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedu
 const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
 const sponsorsPlayer = mountSponsorsPlayer(app.querySelector<HTMLElement>('#sponsors')!)
 const pixelCursor = mountPixelCursor()
-const butterflies = mountFloppyButterflies()
 if (import.meta.hot) import.meta.hot.dispose(() => {
-  butterflies.destroy()
   pixelCursor.destroy()
   sponsorsPlayer.destroy()
   faq.destroy()

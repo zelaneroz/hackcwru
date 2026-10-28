@@ -47,6 +47,59 @@ function mountMosaicScenery(container: HTMLElement): { destroy(): void } {
   container.querySelector('#main')?.append(herd)
   container.classList.add('world-mosaic')
 
+  // Keep moving decorations separate from the rasterized terrain, so wind
+  // never requires repainting the seven-screen canvas textures.
+  const grass = document.createElement('div')
+  grass.className = 'world-plane mosaic-wind-grass'
+  grass.dataset.parallaxSpeed = '.06'
+  grass.dataset.parallaxAnchor = '1'
+  grass.setAttribute('aria-hidden', 'true')
+  let grassSeed = 2027
+  const grassRandom = () => {
+    grassSeed = (grassSeed * 1664525 + 1013904223) >>> 0
+    return grassSeed / 4294967296
+  }
+  const tufts = Array.from({ length: 196 }, (_, index) => {
+    const column = index % 14
+    const row = Math.floor(index / 14)
+    const x = column * 120 + (row % 2 ? 44 : -16) + grassRandom() * 32
+    const y = 680 + row * 210 + grassRandom() * 95
+    const scale = .65 + grassRandom() * .65
+    const delay = -(column * .19 + row * .47)
+    return `<g transform="translate(${x.toFixed(0)} ${y.toFixed(0)}) scale(${scale.toFixed(2)})">
+      <g class="mosaic-grass-tuft" style="--grass-delay:${delay.toFixed(2)}s;--grass-duration:${(3.3 + grassRandom() * 2).toFixed(2)}s">
+        <path fill="#38751d" d="M0 0v-12h-6v-12h-6v-12h6v6h6v12h6v-24h6v-12h6v24h-6v30h6v-12h6v-12h6v-6h6v12h-6v12h-6V0z"/>
+        <path fill="#a7ce56" d="M6 0v-18h6v-24h6v12h-6V0zm12 0v-12h6v-12h6v6h-6V0z"/>
+      </g>
+    </g>`
+  }).join('')
+  grass.innerHTML = `<svg viewBox="0 0 1600 7000" preserveAspectRatio="none" focusable="false" shape-rendering="crispEdges"><g clip-path="url(#world-meadow-clip)">${tufts}</g></svg>`
+
+  const kite = document.createElement('div')
+  kite.className = 'mosaic-kite'
+  kite.setAttribute('aria-hidden', 'true')
+  kite.innerHTML = `<svg viewBox="0 0 120 240" focusable="false" shape-rendering="crispEdges">
+    <g class="mosaic-kite-rock">
+      <g class="mosaic-kite-tail">
+        <path d="M47 99v18h12v18h-6v18H41v18h12v18h18v18h-6v18h-6v13" fill="none" stroke="#fff1cf" stroke-width="2"/>
+        <path d="m59 130-10-6v16zm0 0 10-6v16zM41 170l-10-6v16zm0 0 10-6v16zM71 204l-10-6v16zm0 0 10-6v16z" fill="#ef4a4d" stroke="#b52e44" stroke-width="1"/>
+      </g>
+      <path d="M45 5 84 48 47 101 8 48Z" fill="#ee3347" stroke="#952f42" stroke-width="2"/>
+      <path d="M45 5 46 48 8 48Z" fill="#ff7c6c"/>
+      <path d="M45 5 84 48 46 48Z" fill="#fa4f51"/>
+      <path d="M46 48 84 48 47 101Z" fill="#c52242"/>
+      <path d="m45 5 2 96M8 48h76" fill="none" stroke="#ffd49a" stroke-width="1.5"/>
+      <path d="m20 43 21-25" fill="none" stroke="#ffad8b" stroke-width="3"/>
+    </g>
+  </svg>`
+  const art = container.querySelector('.world-art')
+  art?.append(grass)
+  const kiteSky = document.createElement('div')
+  kiteSky.className = 'mosaic-kite-sky'
+  kiteSky.setAttribute('aria-hidden', 'true')
+  kiteSky.append(kite)
+  container.querySelector('#main')?.append(kiteSky)
+
   function rasterize() {
     if (destroyed) return
     const bounds = container.getBoundingClientRect()
@@ -125,6 +178,8 @@ function mountMosaicScenery(container: HTMLElement): { destroy(): void } {
       canvases.clear()
       for (const svg of planes) svg.classList.remove('mosaic-source-ready')
       herd.remove()
+      grass.remove()
+      kiteSky.remove()
       container.classList.remove('world-mosaic')
     },
   }

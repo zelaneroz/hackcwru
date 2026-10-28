@@ -133,7 +133,7 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Sponsors | `src/sponsors-data.ts`, `src/sponsors-player.ts` | `src/sponsors-player.css` |
 | Floating navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
-| Two floppy butterflies | `src/floppy-butterflies.ts` | `src/floppy-butterflies.css` |
+| Swaying grass and red kite | `src/world-background-mosaic.ts` | `src/world-background-mosaic.css` |
 | About artwork | `infoContent` in `src/main.ts` | `src/info.css` |
 | Shared fonts and retro defaults | Local fonts in `public/fonts/` | `src/retro.css` |
 
@@ -147,8 +147,8 @@ For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain 
 
 The active background files are:
 
-- [src/world-background-mosaic.css](src/world-background-mosaic.css) — mosaic seams, cloud movement, cows, and scene styles.
-- [src/world-background-mosaic.ts](src/world-background-mosaic.ts) — scenery rasterization, grazing cow markup, and scroll/parallax behavior.
+- [src/world-background-mosaic.css](src/world-background-mosaic.css) — mosaic seams, cloud movement, grazing/swaying animations, the kite's flight path, and scene styles.
+- [src/world-background-mosaic.ts](src/world-background-mosaic.ts) — scenery rasterization, cows, grass tufts, red kite markup, and scroll/parallax behavior.
 
 Desktop mosaic tiles are currently 12px and mobile tiles are 8px. To change their size, update both `--mosaic-tile` in the CSS and `const tile` in the TypeScript so the grid and raster sampling match.
 

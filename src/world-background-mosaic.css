@@ -185,3 +185,48 @@ body, #app { min-width: 280px; width: 100%; }
   .world-mosaic .cloud-drift,
   .mosaic-cloud-near, .mosaic-cloud-far, .mosaic-cow-head { animation: none; }
 }
+
+.mosaic-wind-grass { z-index: 3; pointer-events: none; }
+.mosaic-grass-tuft {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: mosaic-grass-wind var(--grass-duration, 4s) steps(5, end) var(--grass-delay, 0s) infinite alternate;
+}
+@keyframes mosaic-grass-wind {
+  0% { transform: skewX(-9deg); }
+  35% { transform: skewX(-2deg); }
+  75% { transform: skewX(12deg); }
+  100% { transform: skewX(18deg); }
+}
+.mosaic-kite-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.mosaic-kite {
+  position: absolute;
+  z-index: 8;
+  top: 5svh;
+  left: 5vw;
+  width: clamp(28px, 3.5vw, 52px);
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(3px 4px 0 #30515724);
+  animation: mosaic-kite-flight 46s ease-in-out -7s infinite;
+}
+.mosaic-kite svg { display: block; width: 100%; height: auto; overflow: visible; }
+.mosaic-kite-rock { transform-origin: 46px 48px; animation: mosaic-kite-rock 3.6s ease-in-out infinite alternate; }
+.mosaic-kite-tail { transform-origin: 47px 99px; animation: mosaic-kite-tail 2.4s steps(5, end) infinite alternate; }
+@keyframes mosaic-kite-flight {
+  0%, 100% { transform: translate(0, 5svh) rotate(-9deg); }
+  25% { transform: translate(68vw, 16svh) rotate(12deg); }
+  50% { transform: translate(46vw, 48svh) rotate(-7deg); }
+  75% { transform: translate(8vw, 31svh) rotate(8deg); }
+}
+@keyframes mosaic-kite-rock { from { transform: rotate(-6deg); } to { transform: rotate(8deg); } }
+@keyframes mosaic-kite-tail { from { transform: skewX(-7deg); } to { transform: skewX(9deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-grass-tuft, .mosaic-kite, .mosaic-kite-rock, .mosaic-kite-tail { animation: none; }
+}
