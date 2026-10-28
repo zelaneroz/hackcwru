@@ -1,5 +1,6 @@
 import './world-background.css'
 import { mountWorldBackground } from './world-background'
+import { mountHeroAlert } from './hero-alert'
 
 // One coordinate system, one landscape. Each 1,000 vertical units occupies one
 // viewport; none of the artwork is attached to a section boundary.
@@ -217,4 +218,10 @@ app.innerHTML = `
 `
 
 const world = mountWorldBackground(app.querySelector<HTMLElement>('.world-scroll-container')!)
-if (import.meta.hot) import.meta.hot.dispose(() => world.destroy())
+const hero = mountHeroAlert(app.querySelector<HTMLElement>('#main')!, {
+  registrationUrl: 'https://tally.so/r/WJJjpe',
+})
+if (import.meta.hot) import.meta.hot.dispose(() => {
+  hero.destroy()
+  world.destroy()
+})
