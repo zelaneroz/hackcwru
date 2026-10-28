@@ -5,6 +5,7 @@ import './info.css'
 import { mountFloatingNav } from './floating-nav'
 import { mountXmbTracks } from './xmb-tracks'
 import { mountScheduleCalendars } from './schedule-calendars'
+import { mountFAQ } from './faq'
 
 // One coordinate system, one landscape. Each 1,000 vertical units occupies one
 // viewport; none of the artwork is attached to a section boundary.
@@ -13,7 +14,7 @@ const sections = [
   { id: 'info', name: 'Upper meadow' },
   { id: 'tracks', name: 'Hackathon tracks' },
   { id: 'schedule', name: 'Event schedule' },
-  { id: 'faq', name: 'Shallow water' },
+  { id: 'faq', name: 'Frequently asked questions' },
   { id: 'sponsors', name: 'Blue water' },
   { id: 'end-banner', name: 'Sunlit cove' },
 ] as const
@@ -219,7 +220,7 @@ app.innerHTML = `
     <div class="world-art" aria-hidden="true">${sky}${clouds}${hills}${foreground}${shoreline}${lakebed}${caustics}</div>
     ${sections.map((section, index) => `
       <section id="${section.id}" class="world-section" data-world-section aria-label="${section.name}" tabindex="-1">
-        ${['info', 'tracks', 'schedule'].includes(section.id) ? '' : `<h1 class="section-marker">
+        ${['info', 'tracks', 'schedule', 'faq'].includes(section.id) ? '' : `<h1 class="section-marker">
           <svg class="marker-icon" viewBox="0 0 16 16" aria-hidden="true"><path fill="#a8d8fa" d="M1 1h14v14H1z"/><path fill="#fffbd5" d="M10 3h3v3h-3z"/><path fill="#5eaa22" d="m1 11 5-5 4 4 2-2 3 4v3H1z"/><path fill="#387b17" d="m1 13 5-4 6 6H1z"/></svg>
           <span>[ SECTION: ${section.id.toUpperCase()} ]</span>
           <span class="marker-index" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
@@ -243,7 +244,9 @@ const navigation = mountFloatingNav(app, {
 })
 const trackSelector = mountXmbTracks(app.querySelector<HTMLElement>('#tracks')!)
 const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedule')!)
+const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
 if (import.meta.hot) import.meta.hot.dispose(() => {
+  faq.destroy()
   calendars.destroy()
   trackSelector.destroy()
   navigation.destroy()
