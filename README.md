@@ -134,6 +134,7 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Floating navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
 | Swaying grass and red kite | `src/world-background-mosaic.ts` | `src/world-background-mosaic.css` |
+| Lake floaters and rubber duck | `src/world-background-mosaic.ts` | `src/world-background-mosaic.css` |
 | About artwork | `infoContent` in `src/main.ts` | `src/info.css` |
 | Shared fonts and retro defaults | Local fonts in `public/fonts/` | `src/retro.css` |
 

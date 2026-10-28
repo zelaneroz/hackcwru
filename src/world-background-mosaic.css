@@ -230,3 +230,37 @@ body, #app { min-width: 280px; width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .mosaic-grass-tuft, .mosaic-kite, .mosaic-kite-rock, .mosaic-kite-tail { animation: none; }
 }
+
+.mosaic-lake-toys { z-index: 7; pointer-events: none; }
+.mosaic-lake-drift { animation: mosaic-floater-drift 32s linear -6s infinite; }
+.mosaic-lake-drift--blue { animation-name: mosaic-floater-drift-blue; animation-duration: 39s; animation-delay: -18s; }
+.mosaic-lake-drift--duck { animation-name: mosaic-duck-drift; animation-duration: 43s; animation-delay: -12s; }
+.mosaic-toy-bob { transform-box: fill-box; transform-origin: center 80%; animation: mosaic-toy-bob 3.8s ease-in-out infinite alternate; }
+.mosaic-lake-drift--blue .mosaic-toy-bob { animation-duration: 4.7s; animation-delay: -2s; }
+.mosaic-lake-drift--duck .mosaic-toy-bob { animation-duration: 3.2s; animation-delay: -1s; }
+.mosaic-toy-ripple { transform-box: fill-box; transform-origin: center; animation: mosaic-toy-ripple 3.6s ease-out infinite; }
+.mosaic-lake-drift--blue .mosaic-toy-ripple { animation-delay: -1.3s; }
+.mosaic-lake-drift--duck .mosaic-toy-ripple { animation-delay: -2.4s; }
+@keyframes mosaic-floater-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(125px, -55px); }
+  50% { transform: translate(230px, 30px); }
+  75% { transform: translate(100px, 95px); }
+}
+@keyframes mosaic-floater-drift-blue {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-140px, 60px); }
+  50% { transform: translate(-240px, -30px); }
+  75% { transform: translate(-85px, -100px); }
+}
+@keyframes mosaic-duck-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(175px, -65px); }
+  50% { transform: translate(300px, 45px); }
+  75% { transform: translate(120px, 120px); }
+}
+@keyframes mosaic-toy-bob { from { transform: translateY(-4px) rotate(-4deg); } to { transform: translateY(5px) rotate(5deg); } }
+@keyframes mosaic-toy-ripple { from { opacity: .65; transform: scale(.8); } to { opacity: 0; transform: scale(1.3); } }
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-lake-drift, .mosaic-toy-bob, .mosaic-toy-ripple { animation: none; }
+}

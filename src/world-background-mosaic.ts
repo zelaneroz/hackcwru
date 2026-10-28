@@ -94,6 +94,46 @@ function mountMosaicScenery(container: HTMLElement): { destroy(): void } {
   </svg>`
   const art = container.querySelector('.world-art')
   art?.append(grass)
+
+  const lakeToys = document.createElement('div')
+  lakeToys.className = 'world-plane mosaic-lake-toys'
+  // Match the lake surface so the toys and shoreline stay aligned on scroll.
+  lakeToys.dataset.parallaxSpeed = '.018'
+  lakeToys.dataset.parallaxAnchor = '3.6'
+  lakeToys.setAttribute('aria-hidden', 'true')
+  const ring = (color: string, shade: string, stripe: string) => `
+    <ellipse cx="60" cy="49" rx="40" ry="22" fill="none" stroke="${shade}" stroke-width="18"/>
+    <ellipse cx="60" cy="43" rx="40" ry="22" fill="none" stroke="${color}" stroke-width="18"/>
+    <path d="m23 25 13 13m48 10 15 12M24 59l14-13m45-9 14-13" fill="none" stroke="${stripe}" stroke-width="15"/>
+    <path d="M30 25q24-15 49-4" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="4"/>
+    <path d="M39 45q20-10 41 0" fill="none" stroke="${shade}" stroke-opacity=".6" stroke-width="3"/>`
+  const duck = `
+    <path d="M26 49 14 34l23 7" fill="#ffd546" stroke="#d89b27" stroke-width="2"/>
+    <ellipse cx="56" cy="49" rx="34" ry="22" fill="url(#mosaic-duck-yellow)" stroke="#d89b27" stroke-width="2"/>
+    <path d="M42 42q-6 16 18 17 13-1 16-10" fill="#efb523" stroke="#d89b27" stroke-width="2"/>
+    <circle cx="79" cy="25" r="18" fill="url(#mosaic-duck-yellow)" stroke="#d89b27" stroke-width="2"/>
+    <path d="m93 26 19 5-18 8-7-5z" fill="#f58232" stroke="#d96a28" stroke-width="2"/>
+    <path d="m96 32 11-1" stroke="#ba5428" stroke-width="1.5"/>
+    <circle cx="83" cy="21" r="3.5" fill="#322e2b"/>
+    <rect x="82" y="18" width="2" height="2" fill="#fff"/>
+    <path d="M68 15q7-7 14-4M34 42q-5 9 2 15" fill="none" stroke="#fff8bd" stroke-width="4"/>`
+  const toy = (name: string, x: number, y: number, artwork: string) => `
+    <g transform="translate(${x} ${y})">
+      <g class="mosaic-lake-drift mosaic-lake-drift--${name}">
+        <ellipse class="mosaic-toy-ripple" cx="60" cy="69" rx="59" ry="17" fill="none" stroke="#d6fff5" stroke-width="2"/>
+        <ellipse cx="60" cy="66" rx="48" ry="11" fill="#126f9b" opacity=".18"/>
+        <g class="mosaic-toy-bob">${artwork}</g>
+      </g>
+    </g>`
+  lakeToys.innerHTML = `<svg viewBox="0 0 1600 7000" preserveAspectRatio="none" focusable="false" shape-rendering="crispEdges">
+    <defs><linearGradient id="mosaic-duck-yellow" x2=".2" y2="1"><stop stop-color="#fff38e"/><stop offset=".45" stop-color="#ffdf45"/><stop offset="1" stop-color="#efb425"/></linearGradient></defs>
+    <g clip-path="url(#world-lake-clip)">
+      ${toy('pink', 250, 4440, ring('#f18ebd', '#b3528e', '#fff2e8'))}
+      ${toy('blue', 1060, 5320, ring('#78d9e6', '#388cae', '#fff1a5'))}
+      ${toy('duck', 570, 6120, duck)}
+    </g>
+  </svg>`
+  art?.append(lakeToys)
   const kiteSky = document.createElement('div')
   kiteSky.className = 'mosaic-kite-sky'
   kiteSky.setAttribute('aria-hidden', 'true')
@@ -179,6 +219,7 @@ function mountMosaicScenery(container: HTMLElement): { destroy(): void } {
       for (const svg of planes) svg.classList.remove('mosaic-source-ready')
       herd.remove()
       grass.remove()
+      lakeToys.remove()
       kiteSky.remove()
       container.classList.remove('world-mosaic')
     },
