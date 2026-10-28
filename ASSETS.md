@@ -139,3 +139,11 @@ Standalone original SVG extracted from the live cursor. Transparent background, 
 ## `public/favicon.svg`
 
 Original project SVG with a beveled Windows-inspired frame and HackCWRU H mark.
+
+## `public/imac-g3-cutout.png`
+
+Transparent iMac G3 hero artwork, derived from the user-supplied `public/fonts/imac_g3.jpg` with the built-in imagegen tool (background-extraction edit). The original photograph is preserved. The title, dates, countdown, and Register button are live HTML, not part of the generated image. Screen coordinates are defined in `src/hero-imac.css`.
+
+Final prompt:
+
+> Use case: background-extraction. Edit target: the supplied front-facing silver and translucent turquoise iMac G3 product photograph. Make a precise transparent-background cutout for a website foreground. Remove only the white studio backdrop and white floor outside the computer. Preserve the entire computer exactly: its front-facing orientation, original silver ribbed bezel, turquoise speaker grilles, CD slot, feet, power button, existing small iMac wordmark, natural materials, highlights and geometry. Preserve the large empty dark CRT screen as opaque dark glass, NOT transparent; no text, UI, new artwork or reflections added to that screen. Keep the original square canvas composition and computer placement and proportions; no cropping, no enlargement, no repositioning. Preserve all edges and feet, with clean anti-aliased transparency outside the silhouette. Do not add a keyboard, mouse, cables, new objects, or any text. Genuine alpha transparency outside the iMac, no checkerboard or white background.
