@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'Minecraft';
+  src: url('/fonts/Minecraft.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.imac-hero-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 0 clamp(8px, 2vw, 40px) max(64px, env(safe-area-inset-bottom));
+  pointer-events: none;
+}
+
+.imac-hero-frame {
+  /* Screen coordinates are measured against the supplied, square iMac photo. */
+  --screen-left: 16.5%;
+  --screen-top: 16.3%;
+  --screen-width: 67.3%;
+  --screen-height: 50.4%;
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  width: min(112%, 1440px, calc(114svh - 72px));
+  aspect-ratio: 1;
+  transform: translateY(12px);
+}
+
+.imac-hero-frame::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 88%;
+  left: 11%;
+  right: 10%;
+  height: 5%;
+  border-radius: 50%;
+  background: #0d301b60;
+  filter: blur(2cqw);
+}
+
+.imac-hero-hardware {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  clip-path: inset(4.5% 3.5% 8% 3.5%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.imac-hero-screen {
+  position: absolute;
+  left: var(--screen-left);
+  top: var(--screen-top);
+  width: var(--screen-width);
+  height: var(--screen-height);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid #152a2a;
+  border-radius: 1.4cqw;
+  background: repeating-linear-gradient(0deg, #dae2e4 0 1px, #d3dcdf 1px 3px);
+  box-shadow: inset 0 0 15px #1c333833;
+  color: #252e34;
+  pointer-events: auto;
+  font-family: 'VT323', 'Courier New', monospace;
+}
+
+.imac-hero-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at 14% 0%, #ffffff20, transparent 60%), repeating-linear-gradient(0deg, #0a1a1810 0 1px, transparent 1px 3px);
+  box-shadow: inset 0 0 18px #17383328;
+  pointer-events: none;
+}
+
+.imac-hero-menu { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex: 0 0 auto; min-height: clamp(12px, 2.6cqw, 28px); padding: 1px clamp(5px, 1.5cqw, 16px); border-bottom: 1px solid #606b71; background: linear-gradient(#f8f9f7, #e4e7e6); color: #263033; font-size: clamp(7px, 1.6cqw, 15px); line-height: 1; }
+.imac-hero-menu-app { display: flex; align-items: center; gap: clamp(3px, .8cqw, 8px); }
+.imac-hero-menu-app svg { width: clamp(8px, 1.65cqw, 17px); height: clamp(8px, 1.65cqw, 17px); }
+.imac-hero-content { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: safe center; gap: clamp(1px, .5cqw, 7px); min-height: 0; padding: clamp(3px, 1.5cqw, 18px) clamp(6px, 2.1cqw, 24px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #95a8ac #d4dcdf; text-align: center; }
+.imac-hero-content h1 { flex: 0 0 auto; max-width: 100%; margin: 0; color: #26343d; font: 400 clamp(14px, 6.9cqw, 72px)/1.1 'Minecraft', 'Courier New', monospace; letter-spacing: -.025em; white-space: nowrap; text-shadow: 0 1px #ffffffb3; }
+.imac-hero-date { flex: 0 0 auto; margin: 0 0 clamp(2px, .4cqw, 5px); color: #52636d; font-size: clamp(12px, 3.2cqw, 30px); line-height: 1.1; }
+
+.imac-hero-countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); flex: 0 0 auto; width: min(100%, 640px); padding: clamp(4px, 1.3cqw, 14px) clamp(6px, 1.5cqw, 18px); border: 2px solid; border-color: #718284 #f9ffff #f9ffff #718284; border-radius: 2px; background: #091710; box-shadow: inset 0 2px 6px #0008; }
+.imac-hero-unit { position: relative; display: flex; flex-direction: column; gap: clamp(3px, .5cqw, 6px); min-width: 0; }
+.imac-hero-unit:not(:last-child)::after { content: ':'; position: absolute; top: 0; right: 0; transform: translateX(50%); color: #82d87c70; font-size: clamp(18px, 5.4cqw, 60px); line-height: 1; }
+.imac-hero-digits { color: #9bf38e; font: 400 clamp(18px, 5.4cqw, 60px)/1 'VT323', 'Courier New', monospace; font-variant-numeric: tabular-nums; white-space: nowrap; text-shadow: 0 0 8px #69e66c55; }
+.imac-hero-unit-label { color: #9ebfa5; font-size: clamp(7px, 1.5cqw, 14px); line-height: 1; letter-spacing: .5px; }
+.imac-hero-register { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: min(78%, 280px); min-height: 44px; margin-top: clamp(2px, .8cqw, 10px); padding: clamp(3px, .7cqw, 8px) clamp(12px, 3cqw, 34px); border: 1px solid #4d7b9f; border-radius: 999px; background: linear-gradient(#f2ffff, #b7dff7 40%, #74b2e1 52%, #c6eaff); box-shadow: inset 0 1px #fff, inset 0 -1px #6493b566, 0 1px 2px #41596740; color: #214663; font: 400 clamp(16px, 4.3cqw, 40px)/1 'VT323', 'Courier New', monospace; text-decoration: none; text-shadow: 0 1px #ffffffb3; }
+.imac-hero-register:hover { background: linear-gradient(#fff, #c5edff 40%, #82c1ee 52%, #d5f3ff); }
+.imac-hero-register:active { background: linear-gradient(#75aacf, #b6dff5); box-shadow: inset 0 2px 4px #21456655; }
+.imac-hero-register:focus-visible { outline: 2px solid #244d71; outline-offset: 2px; }
+
+@media (max-height: 500px) {
+  .imac-hero-stage { padding-top: 4px; padding-bottom: 64px; }
+  .imac-hero-frame { width: min(112%, 1440px, calc(114svh - 72px)); }
+}

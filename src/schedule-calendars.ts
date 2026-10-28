@@ -3,7 +3,7 @@ import './schedule-calendars.css'
 // Preview agenda. Replace the entries and TBA times when the program is final.
 const days = [
   {
-    date: '2027-01-23', day: '23', weekday: 'Saturday',
+    date: '2027-01-22', day: '22', weekday: 'Friday',
     events: [
       { title: 'Check-in', detail: 'Pick up your badge. Meet your people.', color: 'amber' },
       { title: 'Opening ceremony', detail: 'A new window of possibility.', color: 'green' },
@@ -12,7 +12,7 @@ const days = [
     ],
   },
   {
-    date: '2027-01-24', day: '24', weekday: 'Sunday',
+    date: '2027-01-23', day: '23', weekday: 'Saturday',
     events: [
       { title: 'Keep building', detail: 'Bring the idea to life.', color: 'green' },
       { title: 'Workshops', detail: 'Learn something new along the way.', color: 'blue' },
@@ -21,7 +21,7 @@ const days = [
     ],
   },
   {
-    date: '2027-01-25', day: '25', weekday: 'Monday',
+    date: '2027-01-24', day: '24', weekday: 'Sunday',
     events: [
       { title: 'Final submissions', detail: 'Put the finishing touches on.', color: 'amber' },
       { title: 'Project demos', detail: 'Show the world what you made.', color: 'blue' },
@@ -40,7 +40,7 @@ export function mountScheduleCalendars(host: HTMLElement): { destroy(): void } {
   stage.className = 'schedule-calendars-stage'
   stage.innerHTML = `
     <header class="schedule-calendars-heading">
-      <div><p>JAN 23–25, 2027</p><h2>Schedule</h2></div>
+      <div><p>JAN 22–24, 2027</p><h2>Schedule</h2></div>
       <span class="schedule-calendars-preview">Preview · times coming soon</span>
     </header>
     <div class="schedule-calendar-restores" aria-label="Reopen calendars" hidden>

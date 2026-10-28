@@ -1,6 +1,6 @@
 import './world-background.css'
 import { mountWorldBackground } from './world-background'
-import { mountHeroAlert } from './hero-alert'
+import { mountImacHero } from './hero-imac'
 import './info.css'
 import { mountFloatingNav } from './floating-nav'
 import { mountXmbTracks } from './xmb-tracks'
@@ -236,7 +236,7 @@ app.innerHTML = `
 const worldElement = app.querySelector<HTMLElement>('.world-scroll-container')!
 const registrationUrl = 'https://tally.so/r/WJJjpe'
 const world = mountWorldBackground(worldElement)
-const hero = mountHeroAlert(app.querySelector<HTMLElement>('#main')!, {
+const hero = mountImacHero(app.querySelector<HTMLElement>('#main')!, {
   registrationUrl,
 })
 const navigation = mountFloatingNav(app, {
