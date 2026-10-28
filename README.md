@@ -61,7 +61,7 @@ Each entry has this structure:
 - Put images in `public/`. For example, `public/schoolhouse.png` is referenced as `/schoolhouse.png`, without `public/` in the URL.
 - The image is decorative in the selector; the visible track title supplies its accessible name. Keep the image metadata descriptive when replacing artwork.
 
-[src/purble-tracks.ts](src/purble-tracks.ts) renders the data and handles selection. [src/purble-tracks.css](src/purble-tracks.css) controls the layout: buildings use the left 5/7 and the description uses the right 2/7 on desktop, with a stacked layout on smaller screens. The village grid is designed for three buildings; review its `grid-template-columns` if you add or remove tracks.
+[src/purble-tracks.ts](src/purble-tracks.ts) renders the data and handles selection. [src/purble-tracks.css](src/purble-tracks.css) controls the layout: buildings use the left 5/7 and the description uses the right 2/7 on desktop, with a stacked layout on smaller screens. The village uses three staggered grid placements, with the cake factory in front. Review the `.purble-track-building:nth-child(...)` rules if you add, remove, or reposition buildings.
 
 ## Change the Register / Tally link
 

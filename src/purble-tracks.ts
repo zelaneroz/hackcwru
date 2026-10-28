@@ -12,7 +12,6 @@ export function mountPurbleTracks(host: HTMLElement): { destroy(): void } {
     <section class="purble-tracks" aria-labelledby="${prefix}-title">
       <header class="purble-tracks-header">
         <h2 id="${prefix}-title">Tracks</h2>
-        <p>Choose your place to build.</p>
       </header>
       <div class="purble-track-village" role="tablist" aria-label="Hackathon tracks" aria-orientation="horizontal"></div>
       <article class="purble-track-detail" id="${prefix}-panel" role="tabpanel" tabindex="0">
@@ -26,7 +25,6 @@ export function mountPurbleTracks(host: HTMLElement): { destroy(): void } {
         </div>
         <footer class="purble-track-status"></footer>
       </article>
-      <p class="purble-tracks-hint">Pick a building · <span aria-hidden="true">← →</span><span class="purble-tracks-sr-only">Left and right arrow keys change tracks</span></p>
     </section>`
   host.append(stage)
 
