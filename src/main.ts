@@ -3,6 +3,7 @@ import { mountTracksPlayer } from './tracks-player'
 import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
 import { mountSponsorsWall } from './sponsors-wall'
+import { mountTeamFooter } from './team-footer'
 import { mountPixelCursor } from './pixel-cursor'
 import './info.css'
 import './site.css'
@@ -55,10 +56,10 @@ app.innerHTML = `
   </main>
 `
 
-const worldElement = app.querySelector<HTMLElement>('.world-scroll-container')!
+const teamFooter = mountTeamFooter(app)
 const registrationUrl = 'https://tally.so/r/WJJjpe'
 const navigation = mountFloatingNav(app, {
-  world: worldElement,
+  world: app,
   registrationUrl,
 })
 const trackSelector = mountTracksPlayer(app.querySelector<HTMLElement>('#tracks')!)
@@ -68,6 +69,7 @@ const sponsorsWall = mountSponsorsWall(app.querySelector<HTMLElement>('#sponsors
 const pixelCursor = mountPixelCursor()
 if (import.meta.hot) import.meta.hot.dispose(() => {
   pixelCursor.destroy()
+  teamFooter.destroy()
   sponsorsWall.destroy()
   faq.destroy()
   calendars.destroy()

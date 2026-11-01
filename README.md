@@ -1,6 +1,6 @@
 # HackCWRU 2027
 
-A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, and a sponsor wall of reusable retro window panes.
+A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, a sponsor wall of reusable retro window panes, and a team footer with member details.
 
 ## Start here
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. The page sections are `#main`, `#info`, `#tracks`, `#schedule`, `#faq`, and `#sponsors`.
+Open the local URL printed by Vite. The main-page sections are `#main`, `#info`, `#tracks`, `#schedule`, `#faq`, and `#sponsors`. The team footer follows the main element at `#team`.
 
 ## Where to make common changes
 
@@ -22,6 +22,7 @@ Open the local URL printed by Vite. The page sections are `#main`, `#info`, `#tr
 | Calendar dates, weekdays, and agenda entries | [src/schedule-calendars.ts](src/schedule-calendars.ts) | `days`, `renderDay` |
 | FAQ questions and answers | [src/faq-data.ts](src/faq-data.ts) | `faqContent` |
 | Sponsor names, logos, pane sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
+| Team members, portraits, profiles, and organization contacts | [src/team-data.ts](src/team-data.ts) | `teamMembers`, `teamContact` |
 | Browser title and search description | [index.html](index.html) | `<title>`, `name="description"` |
 | About-page artwork and alternative text | [src/main.ts](src/main.ts) | `infoContent` |
 
@@ -117,6 +118,7 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | --- | --- | --- |
 | FAQ | `src/faq-data.ts`, `src/faq.ts` | `src/faq.css` |
 | Sponsors | `src/sponsors-data.ts`, `src/sponsors-wall.ts` | `src/sponsors-wall.css` |
+| Team footer and member popup | `src/team-data.ts`, `src/team-footer.ts` | `src/team-footer.css` |
 | Reusable retro window pane | `src/retro-window.ts` | `src/retro-window.css` |
 | Top navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
@@ -176,9 +178,47 @@ const dragging = enableWindowDrag({
 
 The `bounds` element defines the movement area. Call `dragging.destroy()` when removing the pane to release its event handlers.
 
+### Edit team members and contacts
+
+[src/team-data.ts](src/team-data.ts) supplies the eight `teamMembers` and the organization-level `teamContact` links. Each member follows this type:
+
+```ts
+interface TeamMember {
+  id: string
+  order: number
+  name: string
+  position: string
+  description: string
+  imagePath: string
+  linkedinUrl?: string
+  githubUrl?: string
+  websiteUrl?: string
+}
+```
+
+Each member requires a numeric `order` (currently 1–8). Smaller values appear first, starting at the top left and continuing across each row before the next row. These numbers control display order independently of array positions.
+
+The current cards use the labels `first name` and `position`, with the exact description `lorem ipsum dolor sit amet`. Replace those values with member details and keep IDs unique. `imagePath` is a public URL such as `/team/Blessing.png`, without `public/`.
+
+The first six cards use the supplied portraits `Blessing.png`, `khang.PNG`, `ninjin.png`, `saniha.png`, `zelan.png`, and `zijin.png` in `public/team/`. The final two use `/team/placeholder.svg`; replace those paths when their photos are available. A failed portrait also falls back to this placeholder.
+
+Optional `linkedinUrl`, `githubUrl`, and `websiteUrl` values should be full `https://` URLs. Omit unavailable links; supplied profile links appear in the member popup and open in a new tab.
+
+`teamContact` controls the footer's organization links:
+
+```ts
+{
+  email: 'hackcwruteam@case.edu',
+  linkedinUrl: 'https://www.linkedin.com/company/hackcwru',
+  instagramUrl: 'https://www.instagram.com/hack_cwru/',
+}
+```
+
+[src/team-footer.ts](src/team-footer.ts) renders the `#team` footer outside the main element and opens a native dialog when a member card is selected. Close the popup with its Close button, Escape, or the backdrop; focus returns to the selected card. [src/team-footer.css](src/team-footer.css) controls the card grid, social links, and popup layout.
+
 ## Background and page structure
 
-[src/main.ts](src/main.ts) creates all six sections, renders the homepage and About artwork, mounts the components, and handles hot-reload cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
+[src/main.ts](src/main.ts) creates all six main sections, renders the homepage and About artwork, mounts the components and team footer, and handles hot-reload cleanup. The footer follows the main element; its dialog is attached to the document body. Both are removed by the footer component’s `destroy()` handler during cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
 
 The previous iMac hero and countdown (`src/hero-imac.ts`, `src/hero-imac.css`) and landscape files (`src/world-background*`) are preserved but are not imported or mounted by the active page. Scenery, parallax, and background overlays are disabled.
 
@@ -201,4 +241,4 @@ npm run preview
 
 The generated site is written to `dist/`; edit source files rather than generated output. `vite.config.ts` builds `index.html` and `tracks.html`. The latter preserves the old address by redirecting visitors to `/#tracks`.
 
-Before publishing, check the changed content locally: the Apply link, all navigation destinations, calendar headings and agenda entries, and all three track selections. Check a narrow mobile viewport and keyboard navigation, and confirm that longer content remains reachable by scrolling.
+Before publishing, check the changed content locally: the Apply link, all navigation destinations, calendar headings and agenda entries, all three track selections, and team-card popup opening and dismissal. Check a narrow mobile viewport and keyboard navigation, and confirm that longer content remains reachable by scrolling.
