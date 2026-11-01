@@ -1,16 +1,20 @@
+export type SponsorSize = 'small' | 'medium' | 'large'
+
 export interface Sponsor {
   id: string
   name: string
   image: string
-  /** Optional official website, shown for the selected sponsor when supplied. */
+  /** Controls the pane and logo dimensions; this is not a sponsorship tier. */
+  size: SponsorSize
+  /** Optional official website, opened when the logo is selected. */
   url?: string
 }
 
-// Add or remove entries here; the player derives its layout and counts from
-// this array. Put artwork in public/sponsors and use its /sponsors/... URL.
-// These covers are temporary artwork, not official organization logos.
+// Add or remove entries here; each sponsor gets a retro window pane.
+// Put logos in public/sponsors and use their /sponsors/... URL.
+// Placeholder artwork remains until the official logo is supplied.
 export const sponsors: Sponsor[] = [
-  { id: 'teksafari', name: 'TekSafari', image: '/sponsors/teksafari.png' },
-  { id: 'veale', name: 'CWRU Veale Institute for Entrepreneurship', image: '/sponsors/placeholder.svg' },
-  { id: 'accenture', name: 'Placeholder 1', image: '/sponsors/placeholder.svg' },
+  { id: 'teksafari', name: 'TekSafari', image: '/sponsors/teksafari.png', size: 'large' },
+  { id: 'veale', name: 'CWRU Veale Institute for Entrepreneurship', image: '/sponsors/placeholder.svg', size: 'medium' },
+  { id: 'accenture', name: 'Placeholder 1', image: '/sponsors/placeholder.svg', size: 'small' },
 ]

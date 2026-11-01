@@ -1,6 +1,6 @@
 # HackCWRU 2027
 
-A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, and a sponsor music player.
+A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, and a sponsor wall of reusable retro window panes.
 
 ## Start here
 
@@ -21,7 +21,7 @@ Open the local URL printed by Vite. The page sections are `#main`, `#info`, `#tr
 | Homepage layout, colors, and fonts | [src/site.css](src/site.css) | `.hero-title`, `--brand-blue`, `--brand-green`, `@font-face` |
 | Calendar dates, weekdays, and agenda entries | [src/schedule-calendars.ts](src/schedule-calendars.ts) | `days`, `renderDay` |
 | FAQ questions and answers | [src/faq-data.ts](src/faq-data.ts) | `faqContent` |
-| Sponsor names, logos, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
+| Sponsor names, logos, pane sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
 | Browser title and search description | [index.html](index.html) | `<title>`, `name="description"` |
 | About-page artwork and alternative text | [src/main.ts](src/main.ts) | `infoContent` |
 
@@ -116,16 +116,65 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Area | Content / behavior | Styles |
 | --- | --- | --- |
 | FAQ | `src/faq-data.ts`, `src/faq.ts` | `src/faq.css` |
-| Sponsors | `src/sponsors-data.ts`, `src/sponsors-player.ts` | `src/sponsors-player.css` |
+| Sponsors | `src/sponsors-data.ts`, `src/sponsors-wall.ts` | `src/sponsors-wall.css` |
+| Reusable retro window pane | `src/retro-window.ts` | `src/retro-window.css` |
 | Top navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
 | About artwork | `infoContent` in `src/main.ts` | `src/info.css` |
 | Page layout and supplied fonts | `src/main.ts`, local fonts in `public/fonts/` | `src/site.css` |
 | Retro component defaults | Local fonts in `public/fonts/` | `src/retro.css` |
 
-For sponsors, add or edit `id`, `name`, `image`, and an optional `url` in `src/sponsors-data.ts`. Store artwork under `public/sponsors/`. The player derives its album list and counts from the data; `placeholder.svg` is also its image-error fallback.
-
 For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain text; blank lines separate paragraphs.
+
+### Edit sponsors and pane sizes
+
+[src/sponsors-data.ts](src/sponsors-data.ts) supplies every pane in the wall. Each entry requires a unique `id`, a `name`, an `image` URL, and a `size` of `'small'`, `'medium'`, or `'large'`; `url` is optional. Size controls the pane and logo dimensions, not a sponsorship tier. Store images under `public/sponsors/` and use `/sponsors/...` URLs.
+
+| Current entry | Image | Size |
+| --- | --- | --- |
+| TekSafari | `/sponsors/teksafari.png` | `large` |
+| CWRU Veale Institute for Entrepreneurship | `/sponsors/placeholder.svg` | `medium` |
+| Placeholder 1 | `/sponsors/placeholder.svg` | `small` |
+
+Replace the placeholder image URLs when logo assets are available. Optional website links open in a new tab. If an image cannot load, its sponsor name appears as text.
+
+[src/sponsors-wall.ts](src/sponsors-wall.ts) renders the heading and one pane per entry. [src/sponsors-wall.css](src/sponsors-wall.css) controls the staggered layout, responsive wrapping, and logo footprints.
+
+Drag a pane by its title bar with a mouse or touch. With the title bar focused, use arrow keys to move it, Shift plus an arrow for larger steps, and Home to reset its position. Movement stays within the sponsor wall; positions are kept in memory and reset when the page reloads.
+
+### Reuse the retro window pane
+
+`createRetroWindow` in [src/retro-window.ts](src/retro-window.ts) accepts any DOM `Node` as `content`, an optional title, and an optional size (default `'medium'`). Append its returned element wherever the pane is needed:
+
+```ts
+import { createRetroWindow } from './retro-window'
+
+const content = document.createElement('p')
+content.textContent = 'Your content here.'
+const pane = createRetroWindow({ content, title: 'Example', size: 'medium' })
+host.append(pane)
+
+pane.style.setProperty('--retro-window-bar-color', '#17006b')
+pane.style.setProperty('--retro-window-surface', '#fff')
+pane.style.setProperty('--retro-window-content-padding', '16px')
+```
+
+The shared styles are in [src/retro-window.css](src/retro-window.css). The minimize, maximize, and close marks are decorative; they are not interactive buttons.
+
+To add the same dragging behavior elsewhere, use `enableWindowDrag` from [src/window-drag.ts](src/window-drag.ts):
+
+```ts
+import { enableWindowDrag } from './window-drag'
+
+const dragging = enableWindowDrag({
+  element: pane,
+  handle: pane.querySelector<HTMLElement>('.retro-window-titlebar')!,
+  bounds: host,
+  label: 'Example window',
+})
+```
+
+The `bounds` element defines the movement area. Call `dragging.destroy()` when removing the pane to release its event handlers.
 
 ## Background and page structure
 

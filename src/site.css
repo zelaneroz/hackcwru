@@ -33,7 +33,6 @@
   text-rendering: optimizeLegibility;
   --brand-blue: #0b64c6;
   --brand-green: #83a251;
-  --content-top: 120px;
 }
 
 html { min-width: 280px; }
@@ -105,14 +104,10 @@ body, #app { width: 100%; min-width: 280px; background: #fff; }
 .hero-title-text > span { display: block; white-space: nowrap; }
 .hero-bracket { color: var(--brand-green); letter-spacing: -.075em; transform: translateY(-.06em); }
 
-/* Keep each existing section's content below the top navigation. */
-.sponsors-player-stage { top: var(--content-top); }
-
 .schedule-calendars-heading { color: var(--brand-blue); text-shadow: none; }
 .schedule-calendars-preview { color: #000; border-color: #000; background: #fff; }
 
 @media (max-width: 600px) {
-  :root { --content-top: 104px; }
   .hero { padding-inline: 4vw; }
   .hero-title { font-size: 12.4vw; gap: .14em; }
   .hero-trinket--beeper { top: 132px; left: -8%; width: min(25.5vw, 15.3svh); }

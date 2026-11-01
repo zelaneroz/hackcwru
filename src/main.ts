@@ -2,7 +2,7 @@ import { mountFloatingNav } from './floating-nav'
 import { mountTracksPlayer } from './tracks-player'
 import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
-import { mountSponsorsPlayer } from './sponsors-player'
+import { mountSponsorsWall } from './sponsors-wall'
 import { mountPixelCursor } from './pixel-cursor'
 import './info.css'
 import './site.css'
@@ -64,11 +64,11 @@ const navigation = mountFloatingNav(app, {
 const trackSelector = mountTracksPlayer(app.querySelector<HTMLElement>('#tracks')!)
 const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedule')!)
 const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
-const sponsorsPlayer = mountSponsorsPlayer(app.querySelector<HTMLElement>('#sponsors')!)
+const sponsorsWall = mountSponsorsWall(app.querySelector<HTMLElement>('#sponsors')!)
 const pixelCursor = mountPixelCursor()
 if (import.meta.hot) import.meta.hot.dispose(() => {
   pixelCursor.destroy()
-  sponsorsPlayer.destroy()
+  sponsorsWall.destroy()
   faq.destroy()
   calendars.destroy()
   trackSelector.destroy()

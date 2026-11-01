@@ -35,7 +35,7 @@ export const faqContent: FAQContent = {
         {
       id: 'format',
       question: 'Is HackCWRU in person or virtual?',
-      answer: 'HackCWRU 2026 will take place in person.',
+      answer: 'HackCWRU 2027 will take place in person.',
     },
     {
       id: 'age',
