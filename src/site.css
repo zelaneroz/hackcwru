@@ -106,7 +106,6 @@ body, #app { width: 100%; min-width: 280px; background: #fff; }
 .hero-bracket { color: var(--brand-green); letter-spacing: -.075em; transform: translateY(-.06em); }
 
 /* Keep each existing section's content below the top navigation. */
-.faq-messages-stage,
 .sponsors-player-stage { top: var(--content-top); }
 
 .schedule-calendars-heading { color: var(--brand-blue); text-shadow: none; }
