@@ -1,5 +1,5 @@
 import { mountFloatingNav } from './floating-nav'
-import { mountPurbleTracks } from './purble-tracks'
+import { mountTracksPlayer } from './tracks-player'
 import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
 import { mountSponsorsPlayer } from './sponsors-player'
@@ -61,7 +61,7 @@ const navigation = mountFloatingNav(app, {
   world: worldElement,
   registrationUrl,
 })
-const trackSelector = mountPurbleTracks(app.querySelector<HTMLElement>('#tracks')!)
+const trackSelector = mountTracksPlayer(app.querySelector<HTMLElement>('#tracks')!)
 const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedule')!)
 const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
 const sponsorsPlayer = mountSponsorsPlayer(app.querySelector<HTMLElement>('#sponsors')!)

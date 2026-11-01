@@ -3,6 +3,7 @@ export interface HackTrack {
   filename: string
   title: string
   image: { src: string; alt: string }
+  audio: { src: string; duration: number }
   bullets: [string]
   prizes: { award: string; details: string }[]
 }
@@ -13,7 +14,8 @@ export const hackTracks: HackTrack[] = [
     id: 'software',
     filename: 'software.txt',
     title: 'Software',
-    image: { src: '/schoolhouse.png', alt: 'Purble Place schoolhouse with a golden bell' },
+    image: { src: '/track-art/coffee.svg', alt: 'Pixel art of a steaming coffee mug' },
+    audio: { src: '/tracks/track1.m4a', duration: 31.704 },
     bullets: [
       'Develop intelligent agents, neural networks, or LLM-based solutions to solve modern problems.',
     ],
@@ -25,7 +27,8 @@ export const hackTracks: HackTrack[] = [
     id: 'hardware',
     filename: 'hardware.txt',
     title: 'Hardware',
-    image: { src: '/cake-factory.png', alt: 'Purble Place cake factory with a yellow delivery truck' },
+    image: { src: '/track-art/flower.svg', alt: 'Pixel art of a flower' },
+    audio: { src: '/tracks/track2.m4a', duration: 31.227 },
     bullets: [
       'Build tools that make everyday life more accessible, inclusive, and independent.',
     ],
@@ -37,7 +40,8 @@ export const hackTracks: HackTrack[] = [
     id: 'special',
     filename: 'special.txt',
     title: 'Special Track',
-    image: { src: '/purple-eye-shop.png', alt: 'Purble Place purple shop with blue eyes on its roof' },
+    image: { src: '/track-art/planet.svg', alt: 'Pixel art of a ringed planet' },
+    audio: { src: '/tracks/track3.m4a', duration: 39.142 },
     bullets: [
       'Turn a local challenge into a project that helps your community or the planet.',
     ],

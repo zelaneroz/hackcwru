@@ -1,6 +1,6 @@
 # HackCWRU 2027
 
-A TypeScript, CSS, and Vite website with a white background, a typographic HackCWRU 2027 homepage, pill navigation, three Purble Place track buildings, retro calendars, a Messages-style FAQ, and a sponsor music player.
+A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, and a sponsor music player.
 
 ## Start here
 
@@ -15,7 +15,7 @@ Open the local URL printed by Vite. The page sections are `#main`, `#info`, `#tr
 
 | Change | Edit here | Find this |
 | --- | --- | --- |
-| Track titles, descriptions, prizes, and building images | [src/tracks-data.ts](src/tracks-data.ts) | `hackTracks` |
+| Track titles, descriptions, prizes, music, and pixel artwork | [src/tracks-data.ts](src/tracks-data.ts) | `hackTracks` |
 | Apply / Tally destination | [src/main.ts](src/main.ts) | `registrationUrl` |
 | Main-page event name and year | [src/main.ts](src/main.ts) | `heroContent` |
 | Homepage layout, colors, and fonts | [src/site.css](src/site.css) | `.hero-title`, `--brand-blue`, `--brand-green`, `@font-face` |
@@ -27,11 +27,13 @@ Open the local URL printed by Vite. The page sections are `#main`, `#info`, `#tr
 
 ## Edit tracks and prizes
 
-[src/tracks-data.ts](src/tracks-data.ts) is the source of truth for the track content and images. The entries currently appear in this order:
+[src/tracks-data.ts](src/tracks-data.ts) supplies the track content, pixel artwork, and music. The entries appear in this order:
 
-1. Software — schoolhouse.
-2. Hardware — cake factory.
-3. Special Track — purple eye shop.
+| Track | Artwork | Music |
+| --- | --- | --- |
+| Software | `public/track-art/coffee.svg` | `public/tracks/track1.m4a` |
+| Hardware | `public/track-art/flower.svg` | `public/tracks/track2.m4a` |
+| Special Track | `public/track-art/planet.svg` | `public/tracks/track3.m4a` |
 
 Each entry has this structure:
 
@@ -41,27 +43,27 @@ Each entry has this structure:
   filename: 'software.txt',
   title: 'Software',
   image: {
-    src: '/schoolhouse.png',
-    alt: 'Purble Place schoolhouse with a golden bell',
+    src: '/track-art/coffee.svg',
+    alt: 'Pixel art of a steaming coffee mug',
   },
-  bullets: [
-    'First description paragraph.',
-    'Second description paragraph.',
-  ],
+  audio: { src: '/tracks/track1.m4a', duration: 31.704 },
+  bullets: ['Description paragraph.'],
   prizes: [
     { award: 'Best Software Project', details: 'Prize details here' },
   ],
 }
 ```
 
-- Keep each `id` unique. Array order controls building order.
-- `filename` is the name shown in the description window's title bar.
-- `bullets` currently requires exactly two strings, as defined by `HackTrack`.
+- Keep each `id` unique. Array order controls playlist order.
+- `filename` is retained for compatibility with the previous track component.
+- `bullets` currently requires exactly one string (`[string]`) as defined by `HackTrack`.
 - `prizes` can contain any number of awards; an empty array hides the Prizes heading.
-- Put images in `public/`. For example, `public/schoolhouse.png` is referenced as `/schoolhouse.png`, without `public/` in the URL.
-- The image is decorative in the selector; the visible track title supplies its accessible name. Keep the image metadata descriptive when replacing artwork.
+- Asset URLs omit `public/`. Keep the image alternative text descriptive when replacing artwork.
+- `audio.duration` is a fallback in seconds; the player uses the media's actual duration once metadata loads.
 
-[src/purble-tracks.ts](src/purble-tracks.ts) renders the data and handles selection. [src/purble-tracks.css](src/purble-tracks.css) controls the layout: buildings use the left 5/7 and the description uses the right 2/7 on desktop, with a stacked layout on smaller screens. The village uses three staggered grid placements, with the cake factory in front. Review the `.purble-track-building:nth-child(...)` rules if you add, remove, or reposition buildings.
+[src/tracks-player.ts](src/tracks-player.ts) handles selection, artwork, descriptions, prizes, playback, seeking, and keyboard navigation. Selecting a track starts its music; the player starts silent and pauses when the section leaves view or the browser tab becomes hidden. The previous/next buttons also change the selected hackathon track.
+
+[src/tracks-player.css](src/tracks-player.css) controls the green background, two-column layout, mobile stacking, and pixel controls. The title uses the local Architype Fodor font; other text uses Computer Says No. Artwork lives in `public/track-art/`.
 
 ## Change the Apply / Tally link
 
@@ -127,7 +129,7 @@ For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain 
 
 ## Background and page structure
 
-[src/main.ts](src/main.ts) creates all six white sections, renders the homepage and About artwork, mounts the components, and handles hot-reload cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
+[src/main.ts](src/main.ts) creates all six sections, renders the homepage and About artwork, mounts the components, and handles hot-reload cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
 
 The previous iMac hero and countdown (`src/hero-imac.ts`, `src/hero-imac.css`) and landscape files (`src/world-background*`) are preserved but are not imported or mounted by the active page. Scenery, parallax, and background overlays are disabled.
 
