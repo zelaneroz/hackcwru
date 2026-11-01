@@ -106,7 +106,6 @@ body, #app { width: 100%; min-width: 280px; background: #fff; }
 .hero-bracket { color: var(--brand-green); letter-spacing: -.075em; transform: translateY(-.06em); }
 
 /* Keep each existing section's content below the top navigation. */
-.info-webcore,
 .purble-tracks-stage,
 .schedule-calendars-stage,
 .faq-messages-stage,
@@ -115,7 +114,6 @@ body, #app { width: 100%; min-width: 280px; background: #fff; }
 .purble-tracks-header h2,
 .schedule-calendars-heading { color: var(--brand-blue); text-shadow: none; }
 .schedule-calendars-preview { color: #000; border-color: #000; background: #fff; }
-.info-webcore-card::before { display: none; }
 
 @media (max-width: 600px) {
   :root { --content-top: 104px; }

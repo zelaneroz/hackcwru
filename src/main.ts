@@ -37,10 +37,10 @@ const heroContent = `
 
 const infoContent = `
   <div class="info-webcore">
-    <figure class="info-webcore-card">
-        <img class="info-webcore-image" src="/fonts/hackcwru%20%281%29.png" width="1920" height="1080" loading="lazy" decoding="async"
-          alt="HackCWRU brings together student innovators from across the country to Case Western Reserve University for Cleveland’s biggest hackathon—an unforgettable weekend of creation. Over an action-packed 36 hours, hackers of all experience levels assemble to design, prototype, and build groundbreaking projects. Connect with industry sponsors, collaborate with inspiring peers, and test the limits of what you can invent.">
+    <figure class="info-webcore-art">
+      <img class="info-webcore-image" src="/pixel-art.png" width="960" height="768" loading="lazy" decoding="async" alt="">
     </figure>
+    <p class="info-webcore-copy">HackCWRU brings together student innovators to Case Western Reserve University for Cleveland’s biggest hackathon. Over an action-packed 36 hours, hackers of all backgrounds and experience levels assemble to design and build groundbreaking projects.</p>
   </div>
 `
 
