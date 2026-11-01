@@ -24,7 +24,9 @@ Open the local URL printed by Vite. The main-page sections are `#main`, `#info`,
 | Sponsor names, logos, pane sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
 | Team members, portraits, profiles, and organization contacts | [src/team-data.ts](src/team-data.ts) | `teamMembers`, `teamContact` |
 | Browser title and search description | [index.html](index.html) | `<title>`, `name="description"` |
-| About-page artwork and alternative text | [src/main.ts](src/main.ts) | `infoContent` |
+| About skyline artwork | [src/skyline-art.ts](src/skyline-art.ts) | `renderSkylineFrame` |
+| About animation and accessible label | [src/ascii-skyline.ts](src/ascii-skyline.ts) | `mountAsciiSkyline` |
+| About paragraph | [src/main.ts](src/main.ts) | `infoContent` |
 
 ## Edit tracks and prizes
 
@@ -122,11 +124,19 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Reusable retro window pane | `src/retro-window.ts` | `src/retro-window.css` |
 | Top navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
-| About artwork | `infoContent` in `src/main.ts` | `src/info.css` |
+| About ASCII skyline | `src/skyline-art.ts`, `src/ascii-skyline.ts` | `src/info.css` |
 | Page layout and supplied fonts | `src/main.ts`, local fonts in `public/fonts/` | `src/site.css` |
 | Retro component defaults | Local fonts in `public/fonts/` | `src/retro.css` |
 
 For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain text; blank lines separate paragraphs.
+
+### Edit the About skyline
+
+[src/skyline-art.ts](src/skyline-art.ts) contains the pure `renderSkylineFrame(frame)` generator. Each frame is an 86-column, 42-row ASCII illustration; the clouds, window lights, and water change between frames while the buildings stay fixed.
+
+[src/ascii-skyline.ts](src/ascii-skyline.ts) mounts the artwork and advances frames every 150 ms only while it is visible, the page is active, and reduced motion is off. Clouds move every 3–4 frames, and building characters change every 2 frames with staggered timing. Reduced motion displays a still frame. This file also defines the artwork's accessible label.
+
+[src/info.css](src/info.css) sizes the blue `#0b64c6` artwork responsively using a Courier New monospace grid. The existing About paragraph remains in `infoContent` in `src/main.ts`. The original `public/pixel-art.png` is preserved but is no longer displayed.
 
 ### Edit sponsors and pane sizes
 

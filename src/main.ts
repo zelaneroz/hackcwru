@@ -4,6 +4,7 @@ import { mountScheduleCalendars } from './schedule-calendars'
 import { mountFAQ } from './faq'
 import { mountSponsorsWall } from './sponsors-wall'
 import { mountTeamFooter } from './team-footer'
+import { mountAsciiSkyline } from './ascii-skyline'
 import { mountPixelCursor } from './pixel-cursor'
 import './info.css'
 import './site.css'
@@ -38,9 +39,7 @@ const heroContent = `
 
 const infoContent = `
   <div class="info-webcore">
-    <figure class="info-webcore-art">
-      <img class="info-webcore-image" src="/pixel-art.png" width="960" height="768" loading="lazy" decoding="async" alt="">
-    </figure>
+    <figure class="info-webcore-art"></figure>
     <p class="info-webcore-copy">HackCWRU brings together student innovators to Case Western Reserve University for Cleveland’s biggest hackathon. Over an action-packed 36 hours, hackers of all backgrounds and experience levels assemble to design and build groundbreaking projects.</p>
   </div>
 `
@@ -57,6 +56,7 @@ app.innerHTML = `
 `
 
 const teamFooter = mountTeamFooter(app)
+const skyline = mountAsciiSkyline(app.querySelector<HTMLElement>('.info-webcore-art')!)
 const registrationUrl = 'https://tally.so/r/WJJjpe'
 const navigation = mountFloatingNav(app, {
   world: app,
@@ -69,6 +69,7 @@ const sponsorsWall = mountSponsorsWall(app.querySelector<HTMLElement>('#sponsors
 const pixelCursor = mountPixelCursor()
 if (import.meta.hot) import.meta.hot.dispose(() => {
   pixelCursor.destroy()
+  skyline.destroy()
   teamFooter.destroy()
   sponsorsWall.destroy()
   faq.destroy()

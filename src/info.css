@@ -15,12 +15,25 @@
   margin: 0;
 }
 
-.info-webcore-image {
-  display: block;
+.skyline-art {
+  display: grid;
+  place-items: center;
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  image-rendering: pixelated;
+  min-width: 0;
+  aspect-ratio: 5 / 4;
+  container-type: inline-size;
+  background: #fff;
+  color: #0b64c6;
+}
+
+.skyline-ascii {
+  margin: 0;
+  font: 400 clamp(3px, 1.8cqw, 14px)/1.05 'Courier New', Courier, monospace;
+  font-variant-ligatures: none;
+  letter-spacing: 0;
+  white-space: pre;
+  tab-size: 2;
+  text-align: left;
 }
 
 .info-webcore-copy {
@@ -43,4 +56,12 @@
 
   .info-webcore-art { justify-self: center; width: min(100%, 480px); }
   .info-webcore-copy { font-size: 28px; }
+}
+
+@supports not (font-size: 1cqw) {
+  .skyline-ascii { font-size: clamp(3px, .9vw, 12px); }
+
+  @media (max-width: 640px) {
+    .skyline-ascii { font-size: clamp(3px, 1.8vw, 9px); }
+  }
 }
