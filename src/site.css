@@ -1,0 +1,140 @@
+@import './retro.css';
+
+@font-face {
+  font-family: 'Helvetica Now Display';
+  src: url('/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Now Display';
+  src: url('/fonts/HelveticaNowDisplay-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Computer Says No';
+  src: url('/fonts/computer-says-no.otf') format('opentype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  color: #000;
+  background: #fff;
+  font-family: 'Helvetica Now Display', Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --brand-blue: #0b64c6;
+  --brand-green: #83a251;
+  --content-top: 120px;
+}
+
+html { min-width: 280px; }
+body, #app { width: 100%; min-width: 280px; background: #fff; }
+
+.world-scroll-container {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: clip;
+  background: #fff;
+}
+
+.world-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  background: #fff;
+  outline: none;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 100px 4.6vw 110px;
+}
+
+.hero-trinkets {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-trinket {
+  position: absolute;
+  display: block;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-trinket--beeper { top: 6%; left: -7.5%; width: clamp(128px, 18.7vw, 255px); }
+.hero-trinket--texting { top: 3%; right: -8%; width: clamp(128px, 18.7vw, 255px); }
+.hero-trinket--mac { bottom: 3%; left: -8.5%; width: clamp(162px, 23.8vw, 344px); }
+.hero-trinket--flip-phone { bottom: -1.5%; right: -3.5%; width: clamp(102px, 16.15vw, 221px); }
+
+.hero-title {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .18em;
+  margin: 0;
+  color: var(--brand-blue);
+  font-family: 'Helvetica Now Display', Helvetica, Arial, sans-serif;
+  font-size: clamp(2rem, 12.8vw, 12.5rem);
+  font-weight: 700;
+  line-height: .86;
+  letter-spacing: -.045em;
+}
+
+.hero-title-text { display: block; text-align: center; }
+.hero-title-text > span { display: block; white-space: nowrap; }
+.hero-bracket { color: var(--brand-green); letter-spacing: -.075em; transform: translateY(-.06em); }
+
+/* Keep each existing section's content below the top navigation. */
+.info-webcore,
+.purble-tracks-stage,
+.schedule-calendars-stage,
+.faq-messages-stage,
+.sponsors-player-stage { top: var(--content-top); }
+
+.purble-tracks-header h2,
+.schedule-calendars-heading { color: var(--brand-blue); text-shadow: none; }
+.schedule-calendars-preview { color: #000; border-color: #000; background: #fff; }
+.info-webcore-card::before { display: none; }
+
+@media (max-width: 600px) {
+  :root { --content-top: 104px; }
+  .hero { padding-inline: 4vw; }
+  .hero-title { font-size: 12.4vw; gap: .14em; }
+  .hero-trinket--beeper { top: 132px; left: -8%; width: min(25.5vw, 15.3svh); }
+  .hero-trinket--texting { top: 124px; right: -9%; width: min(25.5vw, 15.3svh); }
+  .hero-trinket--mac { bottom: 4%; left: -10%; width: min(32.3vw, 22.1svh); }
+  .hero-trinket--flip-phone { bottom: 1%; right: -5%; width: min(22.95vw, 20.4svh); }
+}
+
+@media (max-height: 500px) {
+  .hero-trinket--beeper { top: 80px; left: -5%; width: 14.45vw; }
+  .hero-trinket--texting { top: 72px; right: -6%; width: 14.45vw; }
+  .hero-trinket--mac { bottom: -2%; left: -6%; width: 18.7vw; }
+  .hero-trinket--flip-phone { bottom: -1.5%; right: -3%; width: 12.75vw; }
+}
+
+@media (max-height: 500px) and (min-width: 601px) {
+  .hero { padding-block: 100px 24px; }
+  .hero-title { font-size: min(12.8vw, 30svh); }
+}

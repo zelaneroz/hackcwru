@@ -5,18 +5,17 @@ type FloatingNavOptions = {
   registrationUrl: string
 }
 
-/** Kept outside the scenery so the controls stay attached to the viewport. */
+/** Primary links stay available while visitors explore the page. */
 export function mountFloatingNav(host: HTMLElement, options: FloatingNavOptions): { destroy(): void } {
   const nav = document.createElement('nav')
   nav.className = 'floating-nav'
   nav.setAttribute('aria-label', 'Primary navigation')
   nav.innerHTML = `
-    <div class="floating-nav-title" aria-hidden="true">HACKCWRU / MENU</div>
     <div class="floating-nav-items">
-      <a class="floating-nav-link floating-nav-register" target="_blank" rel="noopener noreferrer" aria-label="Register (opens in a new tab)"><span>Register</span><span class="floating-nav-external" aria-hidden="true">↗</span></a>
       <a class="floating-nav-link" href="#info" data-nav-section="info"><span>About</span></a>
-      <a class="floating-nav-link" href="#tracks" data-nav-section="tracks"><span>Tracks</span></a>
-      <a class="floating-nav-link" href="#schedule" data-nav-section="schedule"><span>Schedule</span></a>
+      <a class="floating-nav-link" href="#tracks" data-nav-section="tracks"><span>Tracks &amp; Prizes</span></a>
+      <a class="floating-nav-link floating-nav-register" target="_blank" rel="noopener noreferrer" aria-label="Apply (opens in a new tab)"><span>Apply</span></a>
+      <a class="floating-nav-link" href="#faq" data-nav-section="faq"><span>FAQs</span></a>
       <a class="floating-nav-link" href="#sponsors" data-nav-section="sponsors"><span>Sponsors</span></a>
     </div>
   `
@@ -26,12 +25,9 @@ export function mountFloatingNav(host: HTMLElement, options: FloatingNavOptions)
   const events = new AbortController()
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-  function updateActiveSection() {
-    const active = options.world.dataset.activeSection
-    register.classList.toggle('is-highlighted', active === 'main')
+  function updateActiveSection(active: string) {
     for (const link of sectionLinks) {
       const current = link.dataset.navSection === active
-      link.classList.toggle('is-highlighted', current)
       if (current) link.setAttribute('aria-current', 'location')
       else link.removeAttribute('aria-current')
     }
@@ -49,10 +45,13 @@ export function mountFloatingNav(host: HTMLElement, options: FloatingNavOptions)
     target.scrollIntoView({ behavior: motionPreference.matches ? 'auto' : 'smooth', block: 'start' })
   }, { signal: events.signal })
 
-  const observer = new MutationObserver(updateActiveSection)
-  observer.observe(options.world, { attributes: true, attributeFilter: ['data-active-section'] })
+  const observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) updateActiveSection(entry.target.id)
+    }
+  }, { rootMargin: '-20% 0px -55% 0px' })
+  for (const section of options.world.querySelectorAll('[data-world-section]')) observer.observe(section)
   host.append(nav)
-  updateActiveSection()
 
   return {
     destroy() {
