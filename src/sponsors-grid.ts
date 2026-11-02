@@ -1,26 +1,24 @@
-import './sponsors-wall.css'
-import { createRetroWindow } from './retro-window'
-import { enableWindowDrag } from './window-drag'
+import './sponsors-grid.css'
 import { sponsors as defaultSponsors, type Sponsor } from './sponsors-data'
 
 let instance = 0
 
-/** One reusable window pane per sponsor; all logos and sizes come from the data. */
-export function mountSponsorsWall(host: HTMLElement, sponsors: readonly Sponsor[] = defaultSponsors): { destroy(): void } {
+/** A borderless logo grid; all images and sizes come from the sponsor data. */
+export function mountSponsorsGrid(host: HTMLElement, sponsors: readonly Sponsor[] = defaultSponsors): { destroy(): void } {
   const stage = document.createElement('div')
-  stage.className = 'sponsors-wall-stage'
+  stage.className = 'sponsors-grid-stage'
   const heading = document.createElement('h2')
-  heading.className = 'sponsors-wall-title'
-  heading.id = `sponsors-wall-${++instance}-title`
+  heading.className = 'sponsors-grid-title'
+  heading.id = `sponsors-grid-${++instance}-title`
   heading.textContent = 'thanks to our sponsors!'
-  const wall = document.createElement('ul')
-  wall.className = 'sponsors-wall'
-  wall.setAttribute('aria-labelledby', heading.id)
+  const grid = document.createElement('ul')
+  grid.className = 'sponsors-grid'
+  grid.setAttribute('aria-labelledby', heading.id)
   const events = new AbortController()
 
   for (const sponsor of sponsors) {
     const item = document.createElement('li')
-    item.className = 'sponsor-window'
+    item.className = 'sponsor-grid-item'
     item.dataset.size = sponsor.size
     item.dataset.sponsorId = sponsor.id
     const logoFrame = document.createElement(sponsor.url ? 'a' : 'div')
@@ -48,26 +46,18 @@ export function mountSponsorsWall(host: HTMLElement, sponsors: readonly Sponsor[
     }, { once: true, signal: events.signal })
     image.src = sponsor.image
     logoFrame.append(image, fallback)
-    item.append(createRetroWindow({ content: logoFrame, size: sponsor.size }))
-    wall.append(item)
+    item.append(logoFrame)
+    grid.append(item)
   }
 
   if (!sponsors.length) {
     const empty = document.createElement('li')
-    empty.className = 'sponsors-wall-empty'
+    empty.className = 'sponsors-grid-empty'
     empty.textContent = 'More sponsors coming soon.'
-    wall.append(empty)
+    grid.append(empty)
   }
-  stage.append(heading, wall)
+  stage.append(heading, grid)
   host.append(stage)
-  const dragging = Array.from(wall.querySelectorAll<HTMLElement>('.sponsor-window')).map((element, index) =>
-    enableWindowDrag({
-      element,
-      handle: element.querySelector<HTMLElement>('.retro-window-titlebar')!,
-      bounds: wall,
-      label: `${sponsors[index]!.name} window`,
-    }),
-  )
 
-  return { destroy() { dragging.forEach(pane => pane.destroy()); events.abort(); stage.remove() } }
+  return { destroy() { events.abort(); stage.remove() } }
 }

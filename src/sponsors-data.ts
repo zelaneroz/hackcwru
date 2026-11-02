@@ -4,13 +4,13 @@ export interface Sponsor {
   id: string
   name: string
   image: string
-  /** Controls the pane and logo dimensions; this is not a sponsorship tier. */
+  /** Controls the logo dimensions; this is not a sponsorship tier. */
   size: SponsorSize
   /** Optional official website, opened when the logo is selected. */
   url?: string
 }
 
-// Add or remove entries here; each sponsor gets a retro window pane.
+// Add or remove entries here; each sponsor appears in the logo grid.
 // Put logos in public/sponsors and use their /sponsors/... URL.
 // Placeholder artwork remains until the official logo is supplied.
 export const sponsors: Sponsor[] = [

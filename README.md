@@ -1,6 +1,6 @@
 # HackCWRU 2027
 
-A TypeScript, CSS, and Vite website with a homepage that scrolls from a sleeping pixel-art laptop to a blue game poster, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, a sponsor wall of reusable retro window panes, and a team footer with member details.
+A TypeScript, CSS, and Vite website with a homepage that scrolls from a sleeping pixel-art laptop to a blue game poster, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, a sponsor logo grid, and a team footer with member details.
 
 ## Start here
 
@@ -26,7 +26,7 @@ The previous white title-and-trinkets homepage is preserved at [/homepage-backup
 | Previous white homepage | [src/homepage-backup.ts](src/homepage-backup.ts), [src/homepage-backup.css](src/homepage-backup.css) | `heroContent`, `.hero-title` |
 | Calendar dates, weekdays, and agenda entries | [src/schedule-calendars.ts](src/schedule-calendars.ts) | `days`, `renderDay` |
 | FAQ questions and answers | [src/faq-data.ts](src/faq-data.ts) | `faqContent` |
-| Sponsor names, logos, pane sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
+| Sponsor names, logos, logo sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
 | Team members, portraits, profiles, and organization contacts | [src/team-data.ts](src/team-data.ts) | `teamMembers`, `teamContact` |
 | Browser title and search description | [index.html](index.html) | `<title>`, `name="description"` |
 | About skyline artwork | [src/skyline-art.ts](src/skyline-art.ts) | `renderSkylineFrame` |
@@ -143,9 +143,8 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Area | Content / behavior | Styles |
 | --- | --- | --- |
 | FAQ | `src/faq-data.ts`, `src/faq.ts` | `src/faq.css` |
-| Sponsors | `src/sponsors-data.ts`, `src/sponsors-wall.ts` | `src/sponsors-wall.css` |
+| Sponsors | `src/sponsors-data.ts`, `src/sponsors-grid.ts` | `src/sponsors-grid.css` |
 | Team footer and member popup | `src/team-data.ts`, `src/team-footer.ts` | `src/team-footer.css` |
-| Reusable retro window pane | `src/retro-window.ts` | `src/retro-window.css` |
 | Top navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
 | About ASCII skyline | `src/skyline-art.ts`, `src/ascii-skyline.ts` | `src/info.css` |
@@ -164,9 +163,9 @@ For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain 
 
 [src/info.css](src/info.css) sizes the blue `#0b64c6` artwork responsively using a Courier New monospace grid. The existing About paragraph remains in `infoContent` in `src/main.ts`. The original `public/pixel-art.png` is preserved but is no longer displayed.
 
-### Edit sponsors and pane sizes
+### Edit sponsors and logo sizes
 
-[src/sponsors-data.ts](src/sponsors-data.ts) supplies every pane in the wall. Each entry requires a unique `id`, a `name`, an `image` URL, and a `size` of `'small'`, `'medium'`, or `'large'`; `url` is optional. Size controls the pane and logo dimensions, not a sponsorship tier. Store images under `public/sponsors/` and use `/sponsors/...` URLs.
+[src/sponsors-data.ts](src/sponsors-data.ts) supplies every logo in the grid. Each entry requires a unique `id`, a `name`, an `image` URL, and a `size` of `'small'`, `'medium'`, or `'large'`; `url` is optional. Size controls the logo dimensions, not a sponsorship tier. Store images under `public/sponsors/` and use `/sponsors/...` URLs.
 
 | Current entry | Image | Size |
 | --- | --- | --- |
@@ -176,43 +175,7 @@ For FAQ updates, edit `faqContent.items`, keeping IDs unique. Answers are plain 
 
 Replace the placeholder image URLs when logo assets are available. Optional website links open in a new tab. If an image cannot load, its sponsor name appears as text.
 
-[src/sponsors-wall.ts](src/sponsors-wall.ts) renders the heading and one pane per entry. [src/sponsors-wall.css](src/sponsors-wall.css) controls the staggered layout, responsive wrapping, and logo footprints.
-
-Drag a pane by its title bar with a mouse or touch. With the title bar focused, use arrow keys to move it, Shift plus an arrow for larger steps, and Home to reset its position. Movement stays within the sponsor wall; positions are kept in memory and reset when the page reloads.
-
-### Reuse the retro window pane
-
-`createRetroWindow` in [src/retro-window.ts](src/retro-window.ts) accepts any DOM `Node` as `content`, an optional title, and an optional size (default `'medium'`). Append its returned element wherever the pane is needed:
-
-```ts
-import { createRetroWindow } from './retro-window'
-
-const content = document.createElement('p')
-content.textContent = 'Your content here.'
-const pane = createRetroWindow({ content, title: 'Example', size: 'medium' })
-host.append(pane)
-
-pane.style.setProperty('--retro-window-bar-color', '#17006b')
-pane.style.setProperty('--retro-window-surface', '#fff')
-pane.style.setProperty('--retro-window-content-padding', '16px')
-```
-
-The shared styles are in [src/retro-window.css](src/retro-window.css). The minimize, maximize, and close marks are decorative; they are not interactive buttons.
-
-To add the same dragging behavior elsewhere, use `enableWindowDrag` from [src/window-drag.ts](src/window-drag.ts):
-
-```ts
-import { enableWindowDrag } from './window-drag'
-
-const dragging = enableWindowDrag({
-  element: pane,
-  handle: pane.querySelector<HTMLElement>('.retro-window-titlebar')!,
-  bounds: host,
-  label: 'Example window',
-})
-```
-
-The `bounds` element defines the movement area. Call `dragging.destroy()` when removing the pane to release its event handlers.
+[src/sponsors-grid.ts](src/sponsors-grid.ts) renders the heading and one logo per entry. [src/sponsors-grid.css](src/sponsors-grid.css) controls the responsive layout and logo footprints. The grid has a transparent background and no borders, letting the shared landscape show around each logo. Both the active page and the homepage backup use this shared sponsor component.
 
 ### Edit team members and contacts
 

@@ -72,14 +72,14 @@
 }
 
 .bliss-chapter .world-section,
-.bliss-chapter .sponsors-wall-stage { background: transparent; }
+.bliss-chapter .sponsors-grid-stage { background: transparent; }
 
 .bliss-chapter .schedule-calendars-heading {
   color: #111;
   text-shadow: 0 1px #ffffffb3;
 }
 .bliss-chapter .schedule-calendars-preview { text-shadow: none; }
-.bliss-chapter .sponsors-wall-title {
+.bliss-chapter .sponsors-grid-title {
   color: #000;
   text-shadow: -1px 0 #ffffffb3, 1px 0 #ffffffb3, 0 -1px #ffffffb3, 0 1px #ffffffb3;
 }
