@@ -4,6 +4,8 @@ import { teamMembers, teamContact, type TeamMember } from './team-data'
 const mailIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="currentColor"/><path fill="#fff" d="M9 14h30v22H9z"/><path d="m9 15 15 13 15-13M9 35l10-10m20 10L29 25" fill="none" stroke="#000" stroke-width="3"/></svg>'
 const linkedinIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="3" fill="currentColor"/><circle cx="15" cy="14" r="3" fill="#fff"/><path fill="#fff" d="M12 20h6v18h-6zm10 0h6v3c2-5 11-5 11 4v11h-6V28c0-4-5-4-5 0v10h-6z"/></svg>'
 const instagramIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="38" height="38" rx="11" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="4"/><circle cx="35" cy="13" r="2.5" fill="currentColor"/></svg>'
+const githubIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-1.96c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.18 1.77 1.18 1.03 1.77 2.7 1.26 3.35.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .96-.31 3.16 1.18a11.05 11.05 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.83 1.19 3.09 0 4.41-2.7 5.39-5.26 5.67.42.36.78 1.06.78 2.14v3.19c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>'
+const websiteIcon = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5h14M5 17.5h14"/></svg>'
 let instance = 0
 
 /** The footer and member pop-up both render the same editable team data. */
@@ -42,8 +44,8 @@ export function mountTeamFooter(host: HTMLElement, members: readonly TeamMember[
       <div class="team-dialog-copy">
         <h2 class="team-dialog-name" id="${prefix}-member-name"></h2>
         <p class="team-dialog-position"></p>
-        <p class="team-dialog-description" id="${prefix}-member-description"></p>
         <nav class="team-dialog-links" aria-label="Member profile links" hidden></nav>
+        <p class="team-dialog-description" id="${prefix}-member-description"></p>
       </div>
     </article>
   `
@@ -72,10 +74,15 @@ export function mountTeamFooter(host: HTMLElement, members: readonly TeamMember[
     position.textContent = member.position
     description.textContent = member.description
     profiles.replaceChildren()
-    for (const [label, url] of [['LinkedIn', member.linkedinUrl], ['GitHub', member.githubUrl], ['Website', member.websiteUrl]] as const) {
+    for (const [label, url, icon] of [
+      ['LinkedIn', member.linkedinUrl, linkedinIcon],
+      ['Website', member.websiteUrl, websiteIcon],
+      ['GitHub', member.githubUrl, githubIcon],
+    ] as const) {
       if (!url) continue
       const link = document.createElement('a')
-      link.textContent = label
+      link.innerHTML = icon
+      link.title = label
       link.href = url
       link.target = '_blank'
       link.rel = 'noopener noreferrer'

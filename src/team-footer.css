@@ -144,10 +144,12 @@ html.pixel-cursor-enabled .team-dialog :is(button, a) * { cursor: pointer !impor
 .team-dialog-image { display: block; width: 100%; height: auto; max-width: 240px; aspect-ratio: 1; object-fit: contain; background: #fff; }
 .team-dialog-copy { min-width: 0; overflow-wrap: anywhere; }
 .team-dialog-name { margin: 0 0 6px; font-size: 28px; font-weight: 700; line-height: 1.15; }
-.team-dialog-position { margin: 0 0 20px; font-size: 16px; font-weight: 700; line-height: 1.3; }
+.team-dialog-position { margin: 0 0 8px; font-size: 16px; font-weight: 700; line-height: 1.3; }
 .team-dialog-description { margin: 0; font-size: 16px; line-height: 1.55; white-space: pre-line; }
-.team-dialog-links { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 24px; }
-.team-dialog-links > a { color: #000; font-size: 15px; line-height: 1.4; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.team-dialog-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 16px; }
+.team-dialog-links > a { display: inline-flex; flex: 0 0 44px; align-items: center; justify-content: center; width: 44px; height: 44px; color: #000; text-decoration: none; }
+.team-dialog-links > a > svg { display: block; width: 24px; height: 24px; }
+.team-dialog-links > a:hover { opacity: .6; }
 
 @media (max-width: 700px) {
   .team-footer-inner { padding-inline: 24px; }
