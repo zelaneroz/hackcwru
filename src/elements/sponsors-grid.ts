@@ -1,5 +1,5 @@
 import './sponsors-grid.css'
-import { sponsors as defaultSponsors, type Sponsor } from './sponsors-data'
+import { sponsors as defaultSponsors, type Sponsor } from '../data/sponsors-data'
 
 let instance = 0
 

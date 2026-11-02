@@ -1,5 +1,5 @@
 import './tracks-player.css'
-import { hackTracks } from './tracks-data'
+import { hackTracks } from '../data/tracks-data'
 
 const playIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h3v2h3v2h3v2h3v2h3v4h-3v2h-3v2h-3v2H9v2H6Z"/></svg>'
 const pauseIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h5v18H5zm9 0h5v18h-5Z"/></svg>'

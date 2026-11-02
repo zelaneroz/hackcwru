@@ -1,4 +1,4 @@
-import { renderSkylineFrame } from './skyline-art'
+import { renderSkylineFrame } from '../shared/skyline-art'
 
 /** Live text artwork with no animation work while the illustration is hidden. */
 export function mountAsciiSkyline(host: HTMLElement): { destroy(): void } {

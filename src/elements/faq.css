@@ -1,4 +1,4 @@
-@import './retro.css';
+@import '../shared/retro.css';
 
 /* The window grows with its answers; scrolling stays on the page. */
 .faq-messages-stage {

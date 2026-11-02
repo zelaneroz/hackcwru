@@ -1,5 +1,5 @@
 import './faq.css'
-import { faqContent, type FAQContent } from './faq-data'
+import { faqContent, type FAQContent } from '../data/faq-data'
 
 let nextInstance = 0
 

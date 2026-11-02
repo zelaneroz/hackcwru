@@ -1,21 +1,22 @@
-import { mountFloatingNav } from './floating-nav'
-import { mountTracksPlayer } from './tracks-player'
-import { mountScheduleCalendars } from './schedule-calendars'
-import { mountFAQ } from './faq'
-import { mountSponsorsGrid } from './sponsors-grid'
-import { mountTeamFooter } from './team-footer'
-import { mountAsciiSkyline } from './ascii-skyline'
-import { mountPixelCursor } from './pixel-cursor'
-import { mountScrollHero } from './scroll-hero'
-import { mountBlissMotion } from './bliss-motion'
-import './info.css'
+import { mountFloatingNav } from '../elements/floating-nav'
+import { mountTracksPlayer } from '../elements/tracks-player'
+import { mountScheduleCalendars } from '../elements/schedule-calendars'
+import { mountFAQ } from '../elements/faq'
+import { mountSponsorsGrid } from '../elements/sponsors-grid'
+import { mountTeamFooter } from '../elements/team-footer'
+import { mountAsciiSkyline } from '../elements/ascii-skyline'
+import { mountPixelCursor } from '../elements/pixel-cursor'
+import { mountScrollHero } from '../elements/scroll-hero'
+import { mountBlissMotion } from '../elements/bliss-motion'
+import { registrationUrl, siteContent, siteTitle } from '../data/site-data'
+import '../elements/info.css'
 import './site.css'
-import './bliss-chapter.css'
-import './tracks-bliss-transition.css'
+import '../elements/bliss-chapter.css'
+import '../elements/tracks-bliss-transition.css'
 
 const sections = [
-  { id: 'main', name: 'HackCWRU 2027' },
-  { id: 'info', name: 'About HackCWRU' },
+  { id: 'main', name: siteTitle },
+  { id: 'info', name: `About ${siteContent.eventName}` },
   { id: 'tracks', name: 'Hackathon tracks and prizes' },
   { id: 'schedule', name: 'Event schedule' },
   { id: 'faq', name: 'Frequently asked questions' },
@@ -25,7 +26,7 @@ const sections = [
 const infoContent = `
   <div class="info-webcore">
     <figure class="info-webcore-art"></figure>
-    <p class="info-webcore-copy">HackCWRU brings together student innovators to Case Western Reserve University for Cleveland’s biggest hackathon. Over an action-packed 36 hours, hackers of all backgrounds and experience levels assemble to design and build groundbreaking projects.</p>
+    <p class="info-webcore-copy">${siteContent.aboutCopy}</p>
   </div>
 `
 
@@ -39,7 +40,7 @@ function renderSection(section: (typeof sections)[number]) {
 }
 
 app.innerHTML = `
-  <main class="world-scroll-container" aria-label="HackCWRU 2027">
+  <main class="world-scroll-container" aria-label="${siteTitle}">
     ${sections.slice(0, 3).map(renderSection).join('')}
     <div class="bliss-chapter">
       <div class="bliss-chapter-backdrop" aria-hidden="true">
@@ -56,7 +57,6 @@ app.innerHTML = `
 
 const teamFooter = mountTeamFooter(app)
 const skyline = mountAsciiSkyline(app.querySelector<HTMLElement>('.info-webcore-art')!)
-const registrationUrl = 'https://tally.so/r/WJJjpe'
 const scrollHero = mountScrollHero(app.querySelector<HTMLElement>('#main')!, { registrationUrl })
 const navigation = mountFloatingNav(app, {
   world: app,

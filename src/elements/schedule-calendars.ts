@@ -1,35 +1,6 @@
 import './schedule-calendars.css'
-
-// Preview agenda. Replace the entries and TBA times when the program is final.
-const days = [
-  {
-    date: '2027-01-22', day: '22', weekday: 'Friday',
-    events: [
-      { title: 'Check-in', detail: 'Pick up your badge. Meet your people.', color: 'amber' },
-      { title: 'Opening ceremony', detail: 'A new window of possibility.', color: 'green' },
-      { title: 'Team formation', detail: 'Find the people behind your next idea.', color: 'blue' },
-      { title: 'Hacking begins', detail: 'Make your first commit.', color: 'purple' },
-    ],
-  },
-  {
-    date: '2027-01-23', day: '23', weekday: 'Saturday',
-    events: [
-      { title: 'Keep building', detail: 'Bring the idea to life.', color: 'green' },
-      { title: 'Workshops', detail: 'Learn something new along the way.', color: 'blue' },
-      { title: 'Mentor hours', detail: 'Work through the tricky parts.', color: 'purple' },
-      { title: 'Project check-in', detail: 'Test, refine, repeat.', color: 'amber' },
-    ],
-  },
-  {
-    date: '2027-01-24', day: '24', weekday: 'Sunday',
-    events: [
-      { title: 'Final submissions', detail: 'Put the finishing touches on.', color: 'amber' },
-      { title: 'Project demos', detail: 'Show the world what you made.', color: 'blue' },
-      { title: 'Judging', detail: 'Tell the story behind your project.', color: 'purple' },
-      { title: 'Closing ceremony', detail: 'Celebrate the weekend together.', color: 'green' },
-    ],
-  },
-] as const
+import { scheduleContent, scheduleDays } from '../data/schedule-data'
+import { siteContent } from '../data/site-data'
 
 let instance = 0
 
@@ -40,14 +11,14 @@ export function mountScheduleCalendars(host: HTMLElement): { destroy(): void } {
   stage.className = 'schedule-calendars-stage'
   stage.innerHTML = `
     <header class="schedule-calendars-heading">
-      <div><p>JAN 22–24, 2027</p><h2>Schedule</h2></div>
-      <span class="schedule-calendars-preview">Preview · times coming soon</span>
+      <div><p>${scheduleContent.dateRangeLabel}</p><h2>${scheduleContent.title}</h2></div>
+      <span class="schedule-calendars-preview">${scheduleContent.previewLabel}</span>
     </header>
     <div class="schedule-calendar-restores" aria-label="Reopen calendars" hidden>
-      ${days.map((day, index) => `<button type="button" class="mac-calendar-restore" data-restore="${index}" hidden>Open January ${day.day}</button>`).join('')}
+      ${scheduleDays.map((day, index) => `<button type="button" class="mac-calendar-restore" data-restore="${index}" hidden>Open ${scheduleContent.monthName} ${day.day}</button>`).join('')}
     </div>
     <div class="schedule-calendar-windows">
-      ${days.map((_, index) => `
+      ${scheduleDays.map((_, index) => `
         <section class="mac-calendar-window" data-calendar="${index}" aria-labelledby="${prefix}-${index}-heading">
           <header class="mac-calendar-titlebar">
             <div class="mac-calendar-controls">
@@ -61,12 +32,12 @@ export function mountScheduleCalendars(host: HTMLElement): { destroy(): void } {
           <div class="mac-calendar-content" id="${prefix}-${index}-content">
             <div class="mac-calendar-toolbar">
               <div class="mac-calendar-date-heading">
-                <div class="mac-calendar-date-icon" aria-hidden="true"><span>JAN</span><strong class="mac-calendar-day-number"></strong></div>
+                <div class="mac-calendar-date-icon" aria-hidden="true"><span>${scheduleContent.monthShort}</span><strong class="mac-calendar-day-number"></strong></div>
                 <div><h3 id="${prefix}-${index}-heading" class="mac-calendar-weekday"></h3><time class="mac-calendar-full-date"></time></div>
               </div>
             </div>
-            <ol class="mac-calendar-agenda" aria-label="Preview agenda" aria-live="polite" aria-atomic="true"></ol>
-            <footer class="mac-calendar-footer"><span class="mac-calendar-source"><i aria-hidden="true"></i>HackCWRU</span><span>All times Eastern</span></footer>
+            <ol class="mac-calendar-agenda" aria-label="${scheduleContent.agendaLabel}" aria-live="polite" aria-atomic="true"></ol>
+            <footer class="mac-calendar-footer"><span class="mac-calendar-source"><i aria-hidden="true"></i>${siteContent.eventName}</span><span>${scheduleContent.timeZoneNote}</span></footer>
           </div>
         </section>`).join('')}
     </div>
@@ -79,16 +50,16 @@ export function mountScheduleCalendars(host: HTMLElement): { destroy(): void } {
   let destroyed = false
 
   function renderDay(calendar: HTMLElement, dayIndex: number) {
-    const day = days[dayIndex]!
+    const day = scheduleDays[dayIndex]!
     calendar.querySelector<HTMLElement>('.mac-calendar-day-number')!.textContent = day.day
     calendar.querySelector<HTMLElement>('.mac-calendar-weekday')!.textContent = day.weekday
     const date = calendar.querySelector<HTMLTimeElement>('.mac-calendar-full-date')!
     date.dateTime = day.date
-    date.textContent = `January ${day.day}, 2027`
+    date.textContent = `${scheduleContent.monthName} ${day.day}, ${scheduleContent.year}`
     calendar.querySelector<HTMLOListElement>('.mac-calendar-agenda')!.innerHTML = day.events.map((event) => `
       <li class="mac-calendar-event mac-calendar-event--${event.color}">
         <div class="mac-calendar-event-copy"><h4>${event.title}</h4><p>${event.detail}</p></div>
-        <span class="mac-calendar-event-time"><strong>TBA</strong><span>EST</span></span>
+        <span class="mac-calendar-event-time"><strong>${event.time ?? scheduleContent.defaultEventTime}</strong><span>${event.timeZone ?? scheduleContent.timeZoneLabel}</span></span>
       </li>`).join('')
   }
 

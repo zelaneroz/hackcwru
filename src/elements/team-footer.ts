@@ -1,5 +1,5 @@
 import './team-footer.css'
-import { teamMembers, teamContact, type TeamMember } from './team-data'
+import { teamMembers, teamContact, type TeamMember } from '../data/team-data'
 
 const mailIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="currentColor"/><path fill="#fff" d="M9 14h30v22H9z"/><path d="m9 15 15 13 15-13M9 35l10-10m20 10L29 25" fill="none" stroke="#000" stroke-width="3"/></svg>'
 const linkedinIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="4" width="40" height="40" rx="3" fill="currentColor"/><circle cx="15" cy="14" r="3" fill="#fff"/><path fill="#fff" d="M12 20h6v18h-6zm10 0h6v3c2-5 11-5 11 4v11h-6V28c0-4-5-4-5 0v10h-6z"/></svg>'

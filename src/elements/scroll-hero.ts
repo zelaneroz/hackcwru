@@ -1,5 +1,6 @@
 import './scroll-hero.css'
-import { getIntroProgress, getIntroState, getMonitorZoomTarget } from './scroll-hero-state'
+import { getIntroProgress, getIntroState, getMonitorZoomTarget } from '../shared/scroll-hero-state'
+import { siteContent } from '../data/site-data'
 
 let instance = 0
 
@@ -30,18 +31,18 @@ export function mountScrollHero(host: HTMLElement, options: { registrationUrl: s
             <path stroke="#f3d35b" d="m114 22 34 33-34 33"/>
           </svg>
           <p class="intro-loader-kicker">welcome to</p>
-          <div class="intro-loader-title">HackCWRU<span class="intro-loader-year">2027</span></div>
+          <div class="intro-loader-title">${siteContent.eventName}<span class="intro-loader-year">${siteContent.eventYear}</span></div>
           <div class="intro-loader-meter"><div class="intro-loader-fill"></div></div>
           <p class="intro-loader-copy">Loading your next big idea...</p>
         </div>
       </div>
       <section class="intro-poster" aria-labelledby="${prefix}-title" aria-hidden="true" inert>
         <div class="intro-poster-haze" aria-hidden="true"></div>
-        <div class="intro-poster-topline"><span>Case Western Reserve University<br>Cleveland, Ohio</span></div>
+        <div class="intro-poster-topline"><span>${siteContent.venueName}<br>${siteContent.venueLocation}</span></div>
         <img class="intro-poster-city" src="/hero/retro-city.svg" width="1600" height="400" alt="" aria-hidden="true" draggable="false">
-        <h1 class="intro-poster-title" id="${prefix}-title"><span class="intro-poster-word">HackCWRU</span><span class="intro-poster-year">2027</span></h1>
-        <p class="intro-poster-tagline">Jan 25–27, 2027</p>
-        <div class="intro-poster-actions"><a class="intro-start" target="_blank" rel="noopener noreferrer" aria-label="Apply to HackCWRU (opens in a new tab)">[ APPLY ]</a></div>
+        <h1 class="intro-poster-title" id="${prefix}-title"><span class="intro-poster-word">${siteContent.eventName}</span><span class="intro-poster-year">${siteContent.eventYear}</span></h1>
+        <p class="intro-poster-tagline">${siteContent.heroDateLabel}</p>
+        <div class="intro-poster-actions"><a class="intro-start" target="_blank" rel="noopener noreferrer" aria-label="Apply to ${siteContent.eventName} (opens in a new tab)">[ APPLY ]</a></div>
       </section>
     </div>
   `
