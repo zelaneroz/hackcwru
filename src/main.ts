@@ -7,8 +7,11 @@ import { mountTeamFooter } from './team-footer'
 import { mountAsciiSkyline } from './ascii-skyline'
 import { mountPixelCursor } from './pixel-cursor'
 import { mountScrollHero } from './scroll-hero'
+import { mountBlissMotion } from './bliss-motion'
 import './info.css'
 import './site.css'
+import './bliss-chapter.css'
+import './tracks-bliss-transition.css'
 
 const sections = [
   { id: 'main', name: 'HackCWRU 2027' },
@@ -27,12 +30,27 @@ const infoContent = `
 `
 
 const app = document.querySelector<HTMLDivElement>('#app')!
+
+function renderSection(section: (typeof sections)[number]) {
+  return `
+    <section id="${section.id}" class="world-section" data-world-section aria-label="${section.name}" tabindex="-1">
+      ${section.id === 'info' ? infoContent : ''}
+    </section>`
+}
+
 app.innerHTML = `
   <main class="world-scroll-container" aria-label="HackCWRU 2027">
-    ${sections.map((section) => `
-      <section id="${section.id}" class="world-section" data-world-section aria-label="${section.name}" tabindex="-1">
-        ${section.id === 'info' ? infoContent : ''}
-      </section>`).join('')}
+    ${sections.slice(0, 3).map(renderSection).join('')}
+    <div class="bliss-chapter">
+      <div class="bliss-chapter-backdrop" aria-hidden="true">
+        <span class="bliss-chapter-clouds"></span>
+        <span class="bliss-chapter-grass"></span>
+        <span class="bliss-chapter-wash"></span>
+      </div>
+      <div class="bliss-chapter-content">
+        ${sections.slice(3).map(renderSection).join('')}
+      </div>
+    </div>
   </main>
 `
 
@@ -48,9 +66,11 @@ const trackSelector = mountTracksPlayer(app.querySelector<HTMLElement>('#tracks'
 const calendars = mountScheduleCalendars(app.querySelector<HTMLElement>('#schedule')!)
 const faq = mountFAQ(app.querySelector<HTMLElement>('#faq')!)
 const sponsorsWall = mountSponsorsWall(app.querySelector<HTMLElement>('#sponsors')!)
+const blissMotion = mountBlissMotion(app.querySelector<HTMLElement>('.bliss-chapter')!)
 const pixelCursor = mountPixelCursor()
 if (import.meta.hot) import.meta.hot.dispose(() => {
   pixelCursor.destroy()
+  blissMotion.destroy()
   scrollHero.destroy()
   skyline.destroy()
   teamFooter.destroy()

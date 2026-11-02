@@ -1,0 +1,37 @@
+/* The backup keeps its white edge; the active page joins directly to Bliss. */
+.world-scroll-container:has(> .bliss-chapter) > #tracks::after {
+  display: none;
+}
+
+.world-scroll-container > #tracks + .bliss-chapter::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  height: 64px;
+  background: url('/tracks/pixel-edge-bliss.svg') no-repeat center top / cover;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .world-scroll-container > #tracks + .bliss-chapter::before { height: 48px; }
+}
+
+/* The final landscape section dissolves into the white team footer below. */
+.world-scroll-container:has(> .bliss-chapter) > .bliss-chapter:last-child::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 2;
+  height: 64px;
+  background: url('/backgrounds/pixel-edge-footer.svg') no-repeat center bottom / cover;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .world-scroll-container:has(> .bliss-chapter) > .bliss-chapter:last-child::after { height: 48px; }
+}

@@ -1,8 +1,21 @@
 # Asset provenance
 
+## Shared Schedule, FAQ, and Sponsors landscape
+
+- `public/backgrounds/pixel-bliss.png` — original 1536 × 1024 pixel landscape generated with the **built-in image_gen tool**, inspired by the user's supplied pixel-art Bliss reference. Bright blue sky, blocky clouds, and rolling green hills form one shared desktop backdrop. The full final prompt is saved in [design/pixel-bliss-prompt.md](design/pixel-bliss-prompt.md).
+- `public/backgrounds/pixel-bliss-clear.png` — cloudless 1536 × 1024 edit of that landscape, retaining its hills and grass as the static base.
+- `public/backgrounds/pixel-clouds.png` — 1536 × 1024 transparent cloud layer with stepped white and pale-blue shapes, animated separately from the hills.
+- `public/backgrounds/pixel-grass.png` — 2172 × 724 transparent foreground grass strip with a gentle sway. These three layers were generated with the **built-in image_gen tool**; their full final prompts are saved in [design/pixel-bliss-motion-prompts.md](design/pixel-bliss-motion-prompts.md).
+
+`src/main.ts` groups only Schedule, FAQ, and Sponsors in one landscape chapter. `src/bliss-chapter.css` keeps a single viewport-sized backdrop behind their normal-flow content, with transparent section surfaces. The landscape stays continuous as visitors scroll across those three sections, without repeating or stretching one image over the combined page height. Cloud drift and grass sway use clipped decorative layers, with a restrained 28% white wash behind the content. The source blue and green colors retain their full saturation. `src/bliss-motion.ts` pauses those animations offscreen, in hidden tabs, and for reduced motion. The existing calendars, FAQ accordion, and draggable sponsor windows remain live HTML components. The classic homepage backup is unchanged.
+
+`public/tracks/pixel-edge-bliss.svg` is a code-native, nonrepeating green-to-transparent pixel silhouette. `src/tracks-bliss-transition.css` places it over the landscape's top edge and hides the active page's previous white Tracks bottom edge, so the sections meet directly. The original edge assets remain available to the backup.
+
+`public/backgrounds/pixel-edge-footer.svg` is a separate code-native white-to-transparent pixel silhouette. The same scoped transition stylesheet places its irregular white steps at the bottom of the landscape, merging Sponsors into the white team footer. Both landscape edges use 64px overlays on desktop and 48px on mobile without adding page height.
+
 ## Current homepage: pixel laptop, loader, and retro game poster
 
-The active homepage is implemented in `src/scroll-hero.ts`, `src/scroll-hero-state.ts`, and `src/scroll-hero.css`. It moves from a simplified dark-blue pixel laptop scene through a screen zoom and black XP-inspired HackCWRU 2027 loader to a blue game poster with a `#0b64c6` background and a cream title with navy extrusion. About, Tracks, Schedule, FAQ, Sponsors, and the team footer retain their existing assets and components.
+The active homepage is implemented in `src/scroll-hero.ts`, `src/scroll-hero-state.ts`, and `src/scroll-hero.css`. It moves from a simplified dark-blue pixel laptop scene through a screen zoom and black XP-inspired HackCWRU 2027 loader to a blue game poster with a `#0b64c6` background and a cream title with navy extrusion. The other sections retain their existing components; Schedule, FAQ, and Sponsors share the pixel landscape described above.
 
 - `public/hero/pixel-laptop.png` — current 1536 × 1024 raster artwork generated with the **built-in image_gen tool**, using the user-supplied nighttime laptop illustration for composition and mood. The simplified dark-blue pixel scene has chunky hands and blinds, a minimal keyboard, and a blank screen for live HTML. The full prompt is saved in [design/pixel-laptop-prompt.md](design/pixel-laptop-prompt.md). CSS uses pixelated image rendering and a square screen overlay at top `15.4%`, left `26.1%`, width `47.8%`, and height `41.2%`.
 - `public/hero/monitor-desk.png` — retained previous 1536 × 1024 raster artwork generated with the **built-in image_gen tool**. The beige CRT, keyboard, mouse, desk, and blue-lit room are part of this image; the monitor screen was left blank for the live HTML overlay. Its original prompt remains in [design/monitor-desk-prompt.md](design/monitor-desk-prompt.md); this image is no longer the opening scene.

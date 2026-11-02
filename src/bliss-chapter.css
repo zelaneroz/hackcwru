@@ -1,0 +1,100 @@
+/* Both layers share a grid cell; only the content determines chapter height. */
+.bliss-chapter {
+  --bliss-play-state: paused;
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: #83a251;
+}
+
+.bliss-chapter-backdrop {
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  grid-area: 1 / 1;
+  align-self: start;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+  background: #83a251 url('/backgrounds/pixel-bliss-clear.png') center / cover no-repeat;
+  image-rendering: pixelated;
+  pointer-events: none;
+  user-select: none;
+}
+
+.bliss-chapter-clouds,
+.bliss-chapter-grass,
+.bliss-chapter-wash {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.bliss-chapter-clouds {
+  top: 0;
+  left: -8vw;
+  z-index: 1;
+  width: calc(100% + 16vw);
+  height: 100%;
+  background: url('/backgrounds/pixel-clouds.png') center / cover no-repeat;
+  mask-image: linear-gradient(#000 0 45%, transparent 65%);
+  animation: bliss-cloud-drift 54s steps(36, end) infinite alternate;
+  animation-play-state: var(--bliss-play-state, paused);
+}
+
+.bliss-chapter-grass {
+  bottom: -2%;
+  left: -4vw;
+  z-index: 2;
+  width: calc(100% + 8vw);
+  height: 28%;
+  background: url('/backgrounds/pixel-grass.png') center bottom / cover no-repeat;
+  transform-origin: 50% 100%;
+  animation: bliss-grass-sway 3.8s steps(4, end) infinite alternate;
+  animation-play-state: var(--bliss-play-state, paused);
+}
+
+.bliss-chapter-wash { inset: 0; z-index: 3; background: rgb(255 255 255 / .28); }
+
+.bliss-chapter[data-motion='active'],
+.bliss-chapter-backdrop[data-motion='active'] { --bliss-play-state: running; }
+.bliss-chapter[data-motion='paused'],
+.bliss-chapter-backdrop[data-motion='paused'] { --bliss-play-state: paused; }
+
+.bliss-chapter-content {
+  position: relative;
+  z-index: 1;
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.bliss-chapter .world-section,
+.bliss-chapter .sponsors-wall-stage { background: transparent; }
+
+.bliss-chapter .schedule-calendars-heading {
+  color: #111;
+  text-shadow: 0 1px #ffffffb3;
+}
+.bliss-chapter .schedule-calendars-preview { text-shadow: none; }
+.bliss-chapter .sponsors-wall-title {
+  color: #000;
+  text-shadow: -1px 0 #ffffffb3, 1px 0 #ffffffb3, 0 -1px #ffffffb3, 0 1px #ffffffb3;
+}
+
+@keyframes bliss-cloud-drift {
+  from { transform: translateX(-4vw); }
+  to { transform: translateX(4vw); }
+}
+
+@keyframes bliss-grass-sway {
+  from { transform: translateX(-2px) skewX(-.7deg); }
+  to { transform: translateX(2px) skewX(.7deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bliss-chapter-clouds,
+  .bliss-chapter-grass { animation: none; transform: none; }
+}
