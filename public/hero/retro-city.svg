@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="400" viewBox="0 0 1600 400" shape-rendering="crispEdges">
+  <g fill="#124b87">
+    <path d="M0 160h100V120h120v280H0zm240 40h140v-40h140v240H240zm280 40h100v40h100v120H520zm220 60h120v100H740zm140 0h120v-60h140v160H880zm280-140h140v20h120v220h-260zm280-60h160v300h-160z"/>
+    <rect x="160" y="80" width="20" height="40"/>
+    <rect x="460" y="120" width="20" height="40"/>
+    <rect x="1200" y="120" width="20" height="40"/>
+    <rect x="1500" y="60" width="20" height="40"/>
+  </g>
+  <g fill="#05264f">
+    <path d="M0 120h140v280H0zm160 60h100v220H160zm120-100h20V60h120v20h20v320H280zm180 120h120v200H460zm140 100h120v100H600zm140 40h100v60H740zm140-20h100v80H880zm120-40h100v120h-100zm120-80h120v200h-120zm140-80h20V100h100v20h20v280h-140zm160 40h80V80h100v320h-180z"/>
+    <rect x="40" y="80" width="20" height="40"/>
+    <rect x="200" y="140" width="20" height="40"/>
+    <rect x="340" y="20" width="20" height="40"/>
+    <rect x="500" y="160" width="20" height="40"/>
+    <rect x="1140" y="160" width="20" height="40"/>
+    <rect x="1300" y="60" width="20" height="40"/>
+    <rect x="1540" y="40" width="20" height="40"/>
+    <rect y="380" width="1600" height="20"/>
+  </g>
+  <g fill="#2d8ed3">
+    <path d="M20 160h100v20H20zm0 60h100v20H20zm0 60h100v20H20zm0 60h100v20H20z"/>
+    <path d="M180 220h20v20h-20zm40 0h20v20h-20zm-40 60h20v20h-20zm40 0h20v20h-20zm-40 60h20v20h-20zm40 0h20v20h-20z"/>
+    <path d="M300 100h120v20H300zm0 60h120v20H300zm0 60h120v20H300zm0 60h120v20H300zm0 60h120v20H300z"/>
+    <path d="M480 240h20v20h-20zm40 0h20v20h-20zm-40 40h20v20h-20zm60 0h20v20h-20zm-60 60h20v20h-20zm40 0h20v20h-20z"/>
+    <path d="M620 340h80v20h-80zm140 20h60v20h-60zm140-20h20v20h-20zm40 0h20v20h-20zm80-20h20v20h-20zm40 0h20v20h-20z"/>
+    <path d="M1140 240h80v20h-80zm0 60h80v20h-80zm0 60h80v20h-80z"/>
+    <path d="M1280 140h20v20h-20zm60 0h20v20h-20zm-60 40h20v20h-20zm40 0h20v20h-20zm-40 40h20v20h-20zm60 0h20v20h-20zm-60 40h20v20h-20zm40 0h20v20h-20zm-40 40h20v20h-20zm60 0h20v20h-20zm-60 40h20v20h-20zm40 0h20v20h-20z"/>
+    <path d="M1440 200h140v20h-140zm0 60h140v20h-140zm0 60h140v20h-140zm80-200h60v20h-60z"/>
+  </g>
+</svg>

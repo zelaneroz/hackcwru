@@ -1,6 +1,6 @@
 # HackCWRU 2027
 
-A TypeScript, CSS, and Vite website with a white HackCWRU 2027 homepage, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, a sponsor wall of reusable retro window panes, and a team footer with member details.
+A TypeScript, CSS, and Vite website with a homepage that scrolls from a sleeping pixel-art laptop to a blue game poster, pill navigation, a green track music player, retro calendars, a Messages-style FAQ, a sponsor wall of reusable retro window panes, and a team footer with member details.
 
 ## Start here
 
@@ -11,14 +11,19 @@ npm run dev
 
 Open the local URL printed by Vite. The main-page sections are `#main`, `#info`, `#tracks`, `#schedule`, `#faq`, and `#sponsors`. The team footer follows the main element at `#team`.
 
+The previous white title-and-trinkets homepage is preserved at [/homepage-backup.html](homepage-backup.html), in both development and production builds. Its entry point is [src/homepage-backup.ts](src/homepage-backup.ts), with the copied styles in [src/homepage-backup.css](src/homepage-backup.css). The backup keeps the other sections and their shared components available.
+
 ## Where to make common changes
 
 | Change | Edit here | Find this |
 | --- | --- | --- |
 | Track titles, descriptions, prizes, music, and pixel artwork | [src/tracks-data.ts](src/tracks-data.ts) | `hackTracks` |
 | Apply / Tally destination | [src/main.ts](src/main.ts) | `registrationUrl` |
-| Main-page event name and year | [src/main.ts](src/main.ts) | `heroContent` |
-| Homepage layout, colors, and fonts | [src/site.css](src/site.css) | `.hero-title`, `--brand-blue`, `--brand-green`, `@font-face` |
+| Homepage event name, loading text, date, venue, and Apply button | [src/scroll-hero.ts](src/scroll-hero.ts) | `mountScrollHero`, `intro-loader-title`, `intro-poster-title` |
+| Homepage phase timing and screen zoom | [src/scroll-hero-state.ts](src/scroll-hero-state.ts) | `getIntroState`, `getMonitorZoomTarget` |
+| Homepage layout, colors, and screen alignment | [src/scroll-hero.css](src/scroll-hero.css) | `.scroll-hero`, `.intro-monitor-screen`, `.intro-poster` |
+| Shared page colors and font declarations | [src/site.css](src/site.css) | `--brand-blue`, `--brand-green`, `@font-face` |
+| Previous white homepage | [src/homepage-backup.ts](src/homepage-backup.ts), [src/homepage-backup.css](src/homepage-backup.css) | `heroContent`, `.hero-title` |
 | Calendar dates, weekdays, and agenda entries | [src/schedule-calendars.ts](src/schedule-calendars.ts) | `days`, `renderDay` |
 | FAQ questions and answers | [src/faq-data.ts](src/faq-data.ts) | `faqContent` |
 | Sponsor names, logos, pane sizes, and website links | [src/sponsors-data.ts](src/sponsors-data.ts) | `sponsors` |
@@ -78,13 +83,30 @@ In [src/main.ts](src/main.ts), search for:
 const registrationUrl = 'https://tally.so/r/WJJjpe'
 ```
 
-This URL supplies the top navigation's Apply button, which opens in a new tab. Navigation labels, destinations, and section tracking live in [src/floating-nav.ts](src/floating-nav.ts); pill styling and mobile wrapping live in [src/floating-nav.css](src/floating-nav.css).
+This URL supplies both the top navigation's Apply button and the homepage poster's single primary Apply button; both open the Tally registration form in a new tab. Navigation labels, destinations, and section tracking live in [src/floating-nav.ts](src/floating-nav.ts); pill styling and mobile wrapping live in [src/floating-nav.css](src/floating-nav.css). The backup entry has its own `registrationUrl` constant.
 
-## Change the homepage title and fonts
+## Edit the homepage scroll sequence
 
-Edit `heroContent` in [src/main.ts](src/main.ts) to change the visible event name and year. Keep the heading's `aria-label` in sync. Update the title and description in `index.html` and search for the old year elsewhere when changing the event year.
+[src/scroll-hero.ts](src/scroll-hero.ts) mounts three stages: a simplified dark-blue pixel-art laptop, a zoom into its screen followed by a black XP-inspired HackCWRU 2027 loading screen, and a blue retro game poster. The poster contains the event title, the date `Jan 25–27, 2027`, a two-line venue block reading `Case Western Reserve University` and `Cleveland, Ohio`, and one primary Apply button opening the registration form in a new tab. Text, screen contents, controls, and poster typography are HTML/CSS rather than baked into the scene image.
 
-[src/site.css](src/site.css) controls the title layout and white page backgrounds. It loads local fonts from `public/fonts/`: Helvetica Now Display Bold for the title and Computer Says No for navigation. The brand colors are white, black, blue `#0b64c6`, and green `#83a251`; the title brackets use green.
+[src/scroll-hero-state.ts](src/scroll-hero-state.ts) contains the pure progress, phase, and zoom calculations. [src/scroll-hero.css](src/scroll-hero.css) controls the sticky viewport, screen overlay alignment, loader, poster, and mobile layouts. The standard sequence spans `500svh`. The artwork fills at least the viewport width without stretching, with framing that keeps the laptop display visible on portrait and ultrawide screens. With reduced motion enabled, the page shows the final poster directly in `100svh` without the zoom or loading sequence.
+
+Edit the loader title, poster title, visible date, and venue in `src/scroll-hero.ts` when changing the homepage content. Update the title and description in `index.html` and search for the old year elsewhere. The homepage reuses the supplied fonts: Helvetica Now Display, Computer Says No, and Architype Fodor. Shared font declarations and the white backgrounds used by the other sections remain in [src/site.css](src/site.css); the poster's `#0b64c6` blue background, cream title with navy extrusion, and type treatment are in the hero stylesheet.
+
+The opening raster image is `public/hero/pixel-laptop.png` (1536 × 1024), generated with the built-in imagegen tool. It uses a dark-blue palette, chunky hands and blinds, a minimal keyboard, and a blank screen for the live overlay. Its full prompt is recorded in [design/pixel-laptop-prompt.md](design/pixel-laptop-prompt.md). The image uses pixelated rendering and a square screen overlay; its CSS geometry is top `15.4%`, left `26.1%`, width `47.8%`, and height `41.2%`.
+
+The previous `public/hero/monitor-desk.png` and [design/monitor-desk-prompt.md](design/monitor-desk-prompt.md) remain as historical scene assets. The poster's pixel skyline is the code-native `public/hero/retro-city.svg`. See [ASSETS.md](ASSETS.md) for reference and generation provenance.
+
+### Preview or restore the previous homepage
+
+Open [/homepage-backup.html](homepage-backup.html) to review the preserved white title-and-trinkets homepage. Its `heroContent` remains in `src/homepage-backup.ts`, and its `.hero*` rules remain in `src/homepage-backup.css`.
+
+To restore only that homepage while retaining the current About, Tracks, Schedule, FAQ, Sponsors, and team components:
+
+1. Copy `heroContent` and the `section.id === 'main'` rendering branch from `src/homepage-backup.ts` into `src/main.ts`.
+2. Remove the `mountScrollHero` import, its mount call, and its cleanup call from `src/main.ts`.
+3. Restore the `.hero*` styles and their responsive overrides from `src/homepage-backup.css` into `src/site.css`. Keep the current shared styles and component mounts rather than replacing the complete entry or stylesheet with the snapshot.
+4. Run `npm run build` and check both homepage routes and the section links.
 
 ## Change calendar dates and agenda
 
@@ -127,6 +149,8 @@ Event times are currently hardcoded as `TBA` and `EST` inside `renderDay`; the f
 | Top navigation | `src/floating-nav.ts` | `src/floating-nav.css` |
 | Pixel cursor | `src/pixel-cursor.ts`, `public/pixel-cursor.svg` | `src/pixel-cursor.css` |
 | About ASCII skyline | `src/skyline-art.ts`, `src/ascii-skyline.ts` | `src/info.css` |
+| Homepage scroll sequence | `src/scroll-hero.ts`, `src/scroll-hero-state.ts` | `src/scroll-hero.css` |
+| Previous white homepage | `src/homepage-backup.ts` | `src/homepage-backup.css` |
 | Page layout and supplied fonts | `src/main.ts`, local fonts in `public/fonts/` | `src/site.css` |
 | Retro component defaults | Local fonts in `public/fonts/` | `src/retro.css` |
 
@@ -230,9 +254,9 @@ Optional `linkedinUrl`, `githubUrl`, and `websiteUrl` values should be full `htt
 
 ## Background and page structure
 
-[src/main.ts](src/main.ts) creates all six main sections, renders the homepage and About artwork, mounts the components and team footer, and handles hot-reload cleanup. The footer follows the main element; its dialog is attached to the document body. Both are removed by the footer component’s `destroy()` handler during cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
+[src/main.ts](src/main.ts) creates all six main sections, mounts `mountScrollHero` for `#main` and the About skyline, mounts the other components and team footer, and handles hot-reload cleanup. The footer follows the main element; its dialog is attached to the document body. Both are removed by the footer component’s `destroy()` handler during cleanup. When adding a component, mount it here and call its `destroy()` function in the disposal handler. [src/site.css](src/site.css) defines the shared layout and reserves room for the top navigation.
 
-The previous iMac hero and countdown (`src/hero-imac.ts`, `src/hero-imac.css`) and landscape files (`src/world-background*`) are preserved but are not imported or mounted by the active page. Scenery, parallax, and background overlays are disabled.
+The previous iMac hero and countdown (`src/hero-imac.ts`, `src/hero-imac.css`) and landscape files (`src/world-background*`) are preserved but are not imported or mounted by the active page. The new homepage's scroll animation is confined to `src/scroll-hero*`; the other sections retain their current backgrounds and behavior. The white title-and-trinkets version is separately preserved in the backup route.
 
 See [ASSETS.md](ASSETS.md) for asset provenance and generation notes. Keep the font license files with their fonts.
 
@@ -251,6 +275,8 @@ npm run build
 npm run preview
 ```
 
-The generated site is written to `dist/`; edit source files rather than generated output. `vite.config.ts` builds `index.html` and `tracks.html`. The latter preserves the old address by redirecting visitors to `/#tracks`.
+The generated site is written to `dist/`; edit source files rather than generated output. `vite.config.ts` builds `index.html`, `tracks.html`, and `homepage-backup.html`. The Tracks HTML preserves the old address by redirecting visitors to `/#tracks`.
 
-Before publishing, check the changed content locally: the Apply link, all navigation destinations, calendar headings and agenda entries, all three track selections, and team-card popup opening and dismissal. Check a narrow mobile viewport and keyboard navigation, and confirm that longer content remains reachable by scrolling.
+Before publishing, check the intro forward and backward, laptop-screen alignment, reduced-motion behavior, both Apply links, the homepage date and venue, and the backup route. Also check all navigation destinations, calendar headings and agenda entries, all three track selections, and team-card popup opening and dismissal. Check a narrow mobile viewport and keyboard navigation, and confirm that longer content remains reachable by scrolling.
+
+The current environment could not provide browser preview because the native computer-use pipe was unavailable. Production builds and pure scroll-state/component checks provide code validation; rendered desktop/mobile appearance and playback through the intro still require browser review.

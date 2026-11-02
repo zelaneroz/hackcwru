@@ -6,6 +6,7 @@ import { mountSponsorsWall } from './sponsors-wall'
 import { mountTeamFooter } from './team-footer'
 import { mountAsciiSkyline } from './ascii-skyline'
 import { mountPixelCursor } from './pixel-cursor'
+import { mountScrollHero } from './scroll-hero'
 import './info.css'
 import './site.css'
 
@@ -17,25 +18,6 @@ const sections = [
   { id: 'faq', name: 'Frequently asked questions' },
   { id: 'sponsors', name: 'Our sponsors' },
 ] as const
-
-const heroContent = `
-  <div class="hero">
-    <div class="hero-trinkets" aria-hidden="true">
-      <img class="hero-trinket hero-trinket--beeper" src="/trinkets/beeper.png" width="300" height="267" alt="" decoding="async" draggable="false">
-      <img class="hero-trinket hero-trinket--texting" src="/trinkets/texting.png" width="338" height="328" alt="" decoding="async" draggable="false">
-      <img class="hero-trinket hero-trinket--mac" src="/trinkets/mac.png" width="405" height="303" alt="" decoding="async" draggable="false">
-      <img class="hero-trinket hero-trinket--flip-phone" src="/trinkets/flip_phone.png" width="276" height="359" alt="" decoding="async" draggable="false">
-    </div>
-    <h1 class="hero-title" aria-label="HackCWRU 2027">
-      <span class="hero-bracket" aria-hidden="true">&lt;</span>
-      <span class="hero-title-text" aria-hidden="true">
-        <span>HackCWRU</span>
-        <span>2027</span>
-      </span>
-      <span class="hero-bracket" aria-hidden="true">/&gt;</span>
-    </h1>
-  </div>
-`
 
 const infoContent = `
   <div class="info-webcore">
@@ -49,7 +31,6 @@ app.innerHTML = `
   <main class="world-scroll-container" aria-label="HackCWRU 2027">
     ${sections.map((section) => `
       <section id="${section.id}" class="world-section" data-world-section aria-label="${section.name}" tabindex="-1">
-        ${section.id === 'main' ? heroContent : ''}
         ${section.id === 'info' ? infoContent : ''}
       </section>`).join('')}
   </main>
@@ -58,6 +39,7 @@ app.innerHTML = `
 const teamFooter = mountTeamFooter(app)
 const skyline = mountAsciiSkyline(app.querySelector<HTMLElement>('.info-webcore-art')!)
 const registrationUrl = 'https://tally.so/r/WJJjpe'
+const scrollHero = mountScrollHero(app.querySelector<HTMLElement>('#main')!, { registrationUrl })
 const navigation = mountFloatingNav(app, {
   world: app,
   registrationUrl,
@@ -69,6 +51,7 @@ const sponsorsWall = mountSponsorsWall(app.querySelector<HTMLElement>('#sponsors
 const pixelCursor = mountPixelCursor()
 if (import.meta.hot) import.meta.hot.dispose(() => {
   pixelCursor.destroy()
+  scrollHero.destroy()
   skyline.destroy()
   teamFooter.destroy()
   sponsorsWall.destroy()

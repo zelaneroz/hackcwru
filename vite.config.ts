@@ -6,6 +6,7 @@ export default defineConfig({
       input: {
         main: 'index.html',
         tracks: 'tracks.html',
+        'homepage-backup': 'homepage-backup.html',
       },
     },
   },
