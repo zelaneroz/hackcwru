@@ -68,6 +68,8 @@ Each entry has this structure:
 
 [src/tracks-player.css](src/tracks-player.css) controls the green background, two-column layout, mobile stacking, and pixel controls. The title uses the local Architype Fodor font; other text uses Computer Says No. Artwork lives in `public/track-art/`.
 
+The section's sparse top and bottom pixel transitions use distinct, non-repeating artwork in `public/tracks/pixel-edge.svg` and `public/tracks/pixel-edge-bottom.svg`. Their height is set by `--tracks-edge-height` in the Tracks stylesheet, with a smaller edge on mobile.
+
 ## Change the Apply / Tally link
 
 In [src/main.ts](src/main.ts), search for:
